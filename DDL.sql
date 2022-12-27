@@ -3,7 +3,7 @@ CREATE TABLE `car`(
     `model` VARCHAR(255) NOT NULL,
     `year` YEAR NOT NULL,
     `color` VARCHAR(255) NOT NULL,
-    `milage` INT UNSIGNED NOT NULL DEFAULT '1',
+    `milage` INT UNSIGNED NOT NULL DEFAULT 1,
     `d_price` DECIMAL(8, 2) NOT NULL,
     `hp` INT UNSIGNED NOT NULL,
     `off_id` INT UNSIGNED NOT NULL
@@ -39,7 +39,7 @@ ALTER TABLE
     `office` ADD UNIQUE `office_ph_num_unique`(`ph_num`);
 CREATE TABLE `pickup`(
     `R_id` INT UNSIGNED NOT NULL,
-    `date` TIMESTAMP NOT NULL DEFAULT 'current_timestamp'
+    `date` TIMESTAMP NOT NULL DEFAULT current_timestamp
 );
 ALTER TABLE
     `pickup` ADD PRIMARY KEY `pickup_r_id_primary`(`R_id`);
@@ -58,7 +58,7 @@ ALTER TABLE
     `customer` ADD UNIQUE `customer_email_unique`(`email`);
 CREATE TABLE `car_status`(
     `plate_id` INT UNSIGNED NOT NULL,
-    `date` TIMESTAMP NOT NULL DEFAULT 'current_timestamp',
+    `date` TIMESTAMP NOT NULL DEFAULT current_timestamp,
     `recent_status` VARCHAR(255) NOT NULL DEFAULT 'active'
 );
 ALTER TABLE
@@ -76,4 +76,4 @@ ALTER TABLE
 ALTER TABLE
     `car` ADD CONSTRAINT `car_off_id_foreign` FOREIGN KEY(`off_id`) REFERENCES `office`(`off_id`);
 ALTER TABLE
-    `reserve` ADD CONSTRAINT `reserve_r_id_foreign` FOREIGN KEY(`R_id`) REFERENCES `pickup`(`R_id`);
+    `pickup` ADD CONSTRAINT `pickup_r_id_foreign` FOREIGN KEY(`R_id`) REFERENCES `reserve`(`R_id`);
