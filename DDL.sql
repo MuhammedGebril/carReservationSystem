@@ -13,22 +13,18 @@ ALTER TABLE
     `car` ADD PRIMARY KEY `car_plate_id_primary`(`plate_id`);
 CREATE TABLE `reserve`(
     `plate_id` VARCHAR(255) NOT NULL,
-    `s_date` TIMESTAMP NOT NULL,
-    `d_date` TIMESTAMP NOT NULL,
+    `s_date` TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    `d_date` TIMESTAMP NOT NULL DEFAULT current_timestamp,
     `ssn` VARCHAR(255) NOT NULL,
-    `R_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `R_id` INT UNSIGNED NOT NULL,
     `cancelled` TINYINT(1) NOT NULL
 );
 ALTER TABLE
-    `reserve` ADD PRIMARY KEY `reserve_plate_id_primary`(`plate_id`);
-ALTER TABLE
-    `reserve` ADD PRIMARY KEY `reserve_s_date_primary`(`s_date`);
-ALTER TABLE
-    `reserve` ADD PRIMARY KEY `reserve_ssn_primary`(`ssn`);
+    `reserve` ADD PRIMARY KEY `reserve_plate_id_s_date_ssn_primary`(`plate_id`,`s_date`,`ssn`);
 ALTER TABLE
     `reserve` ADD UNIQUE `reserve_r_id_unique`(`R_id`);
 CREATE TABLE `office`(
-    `off_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `off_id` INT UNSIGNED NOT NULL,
     `ph_num` VARCHAR(255) NOT NULL,
     `country` VARCHAR(255) NOT NULL,
     `city` VARCHAR(255) NOT NULL,
