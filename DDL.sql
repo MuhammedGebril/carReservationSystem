@@ -1,5 +1,5 @@
 CREATE TABLE `car`(
-    `plate_id` INT UNSIGNED NOT NULL,
+    `plate_id` VARCHAR(255) NOT NULL,
     `make` VARCHAR(255) NOT NULL,
     `model` VARCHAR(255) NOT NULL,
     `year` YEAR NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE `car`(
 ALTER TABLE
     `car` ADD PRIMARY KEY `car_plate_id_primary`(`plate_id`);
 CREATE TABLE `reserve`(
-    `plate_id` INT UNSIGNED NOT NULL,
+    `plate_id` VARCHAR(255) NOT NULL,
     `s_date` TIMESTAMP NOT NULL,
     `d_date` TIMESTAMP NOT NULL,
     `ssn` VARCHAR(255) NOT NULL,
@@ -58,7 +58,7 @@ ALTER TABLE
 ALTER TABLE
     `customer` ADD UNIQUE `customer_email_unique`(`email`);
 CREATE TABLE `car_status`(
-    `plate_id` INT UNSIGNED NOT NULL,
+    `plate_id` VARCHAR(255) NOT NULL,
     `date` TIMESTAMP NOT NULL DEFAULT current_timestamp,
     `recent_status` VARCHAR(255) NOT NULL DEFAULT 'active'
 );
