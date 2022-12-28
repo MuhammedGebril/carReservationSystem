@@ -69,4 +69,10 @@ ALTER TABLE
 ALTER TABLE
     `car` ADD CONSTRAINT `car_off_id_foreign` FOREIGN KEY(`off_id`) REFERENCES `office`(`off_id`);
 ALTER TABLE
+    `reserve` ADD CONSTRAINT `reserve_plate_id_foreign` FOREIGN KEY(`plate_id`) REFERENCES `car`(`plate_id`);
+ALTER TABLE
+    `reserve` ADD CONSTRAINT `reserve_ssn_foreign` FOREIGN KEY(`ssn`) REFERENCES `customer`(`ssn`);
+ALTER TABLE
+    `car_status` ADD CONSTRAINT `car_status_plate_id_foreign` FOREIGN KEY(`plate_id`) REFERENCES `car`(`plate_id`);
+ALTER TABLE
     `pickup` ADD CONSTRAINT `pickup_r_id_foreign` FOREIGN KEY(`R_id`) REFERENCES `reserve`(`R_id`);
