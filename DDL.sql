@@ -67,8 +67,6 @@ ALTER TABLE
 ALTER TABLE
     `car_status` ADD UNIQUE `car_status_date_unique`(`date`);
 ALTER TABLE
-    `car` ADD CONSTRAINT `car_model_foreign` FOREIGN KEY(`model`) REFERENCES `car_make`(`model`);
-ALTER TABLE
     `car` ADD CONSTRAINT `car_off_id_foreign` FOREIGN KEY(`off_id`) REFERENCES `office`(`off_id`);
 ALTER TABLE
     `pickup` ADD CONSTRAINT `pickup_r_id_foreign` FOREIGN KEY(`R_id`) REFERENCES `reserve`(`R_id`);
