@@ -1,0 +1,10 @@
+insert into office values (1, '617-835-4132', 'Egypt', 'Al Ḩawāmidīyah', '1562 Jenna Center');
+insert into office values (2, '309-262-3886', 'Tunisia', 'Douane', '100 Toban Way');
+insert into office values (3, '276-528-2855', 'Argentina', 'Almafuerte', '3515 8th Lane');
+insert into office values (4, '971-733-2045', 'Egypt', 'Minyat an Naşr', '147 Memorial Lane');
+insert into office values (5, '574-371-6034', 'Egypt', 'Kawm Ḩamādah', '255 Forest Plaza');
+insert into office values (6, '955-212-4685', 'Morocco', 'Sidi Smaïl', '62934 Mifflin Drive');
+insert into office values (7, '815-760-1116', 'Tunisia', 'Al Matlīn', '937 Northland Avenue');
+insert into office values (8, '146-627-0447', 'Tunisia', 'Al Maşdūr', '36 Carberry Circle');
+insert into office values (9, '617-305-7957', 'Libya', 'At Tāj', '66870 Kensington Court');
+insert into office values (10, '136-237-8229', 'Egypt', 'Quwaysinā', '581 Roth Road');
