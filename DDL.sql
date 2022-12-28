@@ -59,9 +59,7 @@ CREATE TABLE `car_status`(
     `recent_status` VARCHAR(255) NOT NULL DEFAULT 'active'
 );
 ALTER TABLE
-    `car_status` ADD PRIMARY KEY `car_status_plate_id_primary`(`plate_id`);
-ALTER TABLE
-    `car_status` ADD UNIQUE `car_status_date_unique`(`date`);
+    `car_status` ADD PRIMARY KEY `car_status_plate_id_date_primary`(`plate_id`, `date`);
 ALTER TABLE
     `car` ADD CONSTRAINT `car_off_id_foreign` FOREIGN KEY(`off_id`) REFERENCES `office`(`off_id`);
 ALTER TABLE
