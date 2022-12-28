@@ -1,5 +1,6 @@
 CREATE TABLE `car`(
     `plate_id` INT UNSIGNED NOT NULL,
+    `make` VARCHAR(255) NOT NULL,
     `model` VARCHAR(255) NOT NULL,
     `year` YEAR NOT NULL,
     `color` VARCHAR(255) NOT NULL,
@@ -65,12 +66,6 @@ ALTER TABLE
     `car_status` ADD PRIMARY KEY `car_status_plate_id_primary`(`plate_id`);
 ALTER TABLE
     `car_status` ADD UNIQUE `car_status_date_unique`(`date`);
-CREATE TABLE `car_make`(
-    `model` VARCHAR(255) NOT NULL,
-    `make` VARCHAR(255) NOT NULL
-);
-ALTER TABLE
-    `car_make` ADD PRIMARY KEY `car_make_model_primary`(`model`);
 ALTER TABLE
     `car` ADD CONSTRAINT `car_model_foreign` FOREIGN KEY(`model`) REFERENCES `car_make`(`model`);
 ALTER TABLE
