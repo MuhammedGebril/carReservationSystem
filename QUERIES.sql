@@ -34,4 +34,4 @@ SELECT SUM(d_price * DATEDIFF(LEAST({end},d_date),pickup.date)) FROM `pickup`
 NATURAL JOIN `reserve`
 NATURAL JOIN `car`
 WHERE pickup.date >= {start} AND pickup.date <= {end}
-GROUP BY pickup.date;
+GROUP BY pickup.R_id;
