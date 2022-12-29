@@ -1,16 +1,13 @@
-INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('CL-32516','2022-01-11 10:03:20','2022-03-20 14:35:39','668-37-7632',1,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('WC-10409','2022-12-06 22:22:19','2022-12-15 04:27:22','644-40-0250',2,'false');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('FL-85524','2022-04-21 05:39:10','2022-05-10 22:16:01','791-42-6646',3,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('XY-73151','2022-01-25 19:45:20','2022-03-18 12:39:08','215-22-7692',4,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('ZE-19686','2022-04-20 07:48:07','2022-06-05 13:42:37','112-27-4950',8,'false');
-INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('GK-24344','2022-03-22 06:22:11','2022-06-17 14:21:53','208-16-2955',9,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('CH-92159','2022-05-12 09:24:07','2022-05-28 21:58:36','525-15-0964',10,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('TO-89099','2022-02-02 06:36:28','2022-02-17 08:52:02','519-59-3093',11,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('ZK-14634','2022-06-30 11:57:27','2022-07-19 05:42:12','807-11-9796',13,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('VS-81016','2022-07-15 13:39:53','2022-09-08 10:02:58','114-68-8590',15,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('UW-55214','2022-11-10 12:44:23','2022-12-08 04:40:59','515-13-3251',18,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('WM-58795','2022-03-03 23:43:49','2022-04-01 13:51:27','149-72-0178',24,'false');
-INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('ZS-56030','2022-08-27 16:46:34','2022-09-26 10:18:09','238-94-9001',28,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('KC-40391','2022-11-13 04:05:00','2022-11-25 10:57:22','577-31-3784',30,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('UD-95684','2022-08-16 15:08:06','2022-11-01 17:19:56','555-03-8020',32,'true');
 INSERT INTO reserve(plate_id,s_date,d_date,ssn,R_id,cancelled) VALUES ('OK-77711','2022-04-25 14:20:51','2022-07-17 04:16:30','150-31-2524',35,'true');
