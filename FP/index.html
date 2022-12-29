@@ -1,0 +1,55 @@
+<!DOCTYPE >
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Manipulating the DOM</title>
+  <!-- Load Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap" rel="stylesheet">  <!-- Load Styles -->
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+  <!-- HTML Follows BEM naming conventions 
+  IDs are only used for sections to connect menu achors to sections -->
+  <header class="page__header">
+    <div>
+      <button id="adminLog">admin login</button>
+      <h1>Car rental agency</h1>
+    </div>
+    <div id="userLog">login</div>
+  </header>
+  <main>
+  <div id="search">
+    <h3>advanced search</h3>
+    <ul id="searchPanel">
+      <ul id="makes"><h4>makes:</h4></ul>
+      <ul id="models"><h4>models:</h4></ul>
+      <li>year</li>
+      <ul id="colors">,<h4>colors:</h4></ul>
+      <li>mileage</li>
+      <li>horse power</li>
+      <li>price</li>
+    </ul>
+  </div>
+  <div id="items">
+  </div>
+  <div id="panel">
+    <h3>details</h3>
+    <ul id="searchPanel">
+      <li>make</li>
+      <li>model</li>
+      <li>year</li>
+      <li>color</li>
+      <li>mileage</li>
+      <li>horse power</li>
+      <li>price</li>
+    </ul>
+  </div>
+  </main>
+  <footer class="page__footer">
+    
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
