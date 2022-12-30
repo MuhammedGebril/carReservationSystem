@@ -30,7 +30,7 @@ WHERE ssn = {ssn};
 
 -- Daily payments within specific period
 -- {start} {end}
-SELECT SUM(d_price * DATEDIFF(LEAST({end},d_date),pickup.date)) FROM `pickup`
+SELECT SUM(d_price * DATEDIFF(d_date,`date`)) FROM `pickup`
 NATURAL JOIN `reserve`
 NATURAL JOIN `car`
 WHERE pickup.date >= {start} AND pickup.date <= {end}
