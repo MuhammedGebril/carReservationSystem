@@ -1,8 +1,18 @@
 // Setup empty JS object to act as endpoint for all routes
-const projectData = {
-    makes: ["renault","audi","bmw","chevrolet","dodge"] ,
-    models: ["duster","megane","a4","a5","x3","x6","aveo","corvette","challenger","hornet"]
+var dBData = {
+    makes: [] ,
+    models: [],
+    colors: [],
+    milage: [],
+    hp: [],
+    price: [],
+    year: []
 };
+
+const admin = {
+    username: "admin",
+    password: "adamkikha"
+}
 
 // Require Express to run server and routes
 const express = require("express");
@@ -14,30 +24,24 @@ const connection = mysql.createConnection({
     user     : 'root',
     password : '',
     database : 'carAgency'
-})
+});
 
-try {
-    connection.connect();
-} catch (error) {
-    console.log(error);
-}
+connection.connect();
+
 
 // db demo
-connection.query("SELECT * FROM car_status",function (error, results, fields) {
-    if (error) throw error;
-    console.log('The solution is: ', results);
-  });
+
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
 const bodyParser = require("body-parser");
-const { json } = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Cors for cross origin allowance
 app.use(require("cors")());
+
 // Initialize the main project folder
-app.use(express.static('website'));
+app.use(express.static('FP'));
 
 
 // Setup Server
@@ -47,12 +51,39 @@ app.listen(8000,()=>{
 
 // GET Route Setup
 app.get("/get",(req,res)=>{
-    req = req.json()});
+    req = req.json()
+    req.body;
+});
 
-    
-    
 app.get("/init",(req,res)=>{
-    res.send(JSON.stringify(projectData))});
+    try {
+        connection.query("SELECT DISTINCT make FROM car",function (error, results, fields) {
+            dBData.makes = results;
+            if (error) throw error;
+        });
+        connection.query("SELECT DISTINCT color FROM car",function (error, results, fields) {
+            dBData.colors = results;
+            if (error) throw error;
+        });
+        
+        connection.query("SELECT min(d_price),max(d_price),min(milage),max(milage),min(hp),max(hp),min(year),max(year) FROM car",function (error, results, fields) {
+            dBData.price = [results[0]["min(d_price)"],results[0]["max(d_price)"]];
+            dBData.milage = [results[0]["min(milage)"],results[0]["max(milage)"]];
+            dBData.year = [results[0]["min(year)"],results[0]["max(year)"]];
+            dBData.hp = [results[0]["min(hp)"],results[0]["max(hp)"]];
+            if (error) throw error;
+        });  
+        connection.query("SELECT * FROM car ORDER BY model",function (error, results, fields) {
+            dBData.models = results;
+            if (error) throw error;
+        });
+        
+    } catch (error) {
+        console.log(error);
+    }
+
+    res.send(JSON.stringify(dBData));
+});
     
 // POST Route Setup
 app.post("/post",(req,res)=>{
@@ -62,5 +93,5 @@ app.post("/post",(req,res)=>{
         date: req.body.date
     }
     console.log(data);
-    projectData[data.date] = data;
+    dBData[data.date] = data;
 });
