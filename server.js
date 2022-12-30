@@ -143,3 +143,24 @@ app.post("/register",(req,res)=>{
     
 });
 
+// POST User Init Setup
+app.post("/userinit",(req,res)=>{
+    let body = req.json();
+    sql = `SELECT * FROM customer WHERE email = ? AND password = ?`
+    connection.query(sql, [body.username, body.password],function (error, results, fields) {
+        if (error) res.sendStatus(400);
+        if (results.length == 0){
+            res.sendStatus(400);
+        }
+        sql = `SELECT ssn, email, name, ph_num, age, gender, model, plate_id, s_date, d_date, cancelled, R_id FROM reserve
+        NATURAL JOIN customer
+        NATURAL JOIN car
+        WHERE ssn = ?;`;
+
+        connection.query(sql, [results[0][0]],function (error, results2, fields) {
+            if (error) res.sendStatus(400);
+                // return OK response with user reservations
+            });
+        });
+    
+});
