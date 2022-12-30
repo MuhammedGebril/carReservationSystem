@@ -7,7 +7,8 @@ CREATE TABLE `car`(
     `milage` INT UNSIGNED NOT NULL DEFAULT 1,
     `d_price` DECIMAL(8, 2) NOT NULL,
     `hp` INT UNSIGNED NOT NULL,
-    `off_id` INT UNSIGNED NOT NULL
+    `off_id` INT UNSIGNED NOT NULL,
+    `is_reserved` BOOL NOT NULL DEFAULT false
 );
 ALTER TABLE
     `car` ADD PRIMARY KEY `car_plate_id_primary`(`plate_id`);
@@ -40,6 +41,13 @@ CREATE TABLE `pickup`(
 );
 ALTER TABLE
     `pickup` ADD PRIMARY KEY `pickup_r_id_primary`(`R_id`);
+CREATE TABLE `payment`(
+    `R_id` INT UNSIGNED NOT NULL,
+    `date` TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    `online` BOOL NOT NULL DEFAULT true
+);
+ALTER TABLE
+    `payment` ADD PRIMARY KEY `payment_r_id_primary`(`R_id`);
 CREATE TABLE `customer`(
     `ssn` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
@@ -70,3 +78,5 @@ ALTER TABLE
     `car_status` ADD CONSTRAINT `car_status_plate_id_foreign` FOREIGN KEY(`plate_id`) REFERENCES `car`(`plate_id`);
 ALTER TABLE
     `pickup` ADD CONSTRAINT `pickup_r_id_foreign` FOREIGN KEY(`R_id`) REFERENCES `reserve`(`R_id`);
+ALTER TABLE
+    `payment` ADD CONSTRAINT `payment_r_id_foreign` FOREIGN KEY(`R_id`) REFERENCES `reserve`(`R_id`);
