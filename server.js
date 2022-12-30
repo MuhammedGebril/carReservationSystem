@@ -11,7 +11,7 @@ var dBData = {
 
 const admin = {
     username: "admin",
-    password: "adamkikha"
+    password: "105289c3d80dc3255f11aab58c456b58" // adamkikha md5
 }
 
 // Require Express to run server and routes
@@ -95,3 +95,51 @@ app.post("/post",(req,res)=>{
     console.log(data);
     dBData[data.date] = data;
 });
+
+// POST Login Route Setup
+app.post("/login",(req,res)=>{
+    let body = req.json();
+    const data = {
+        admin: body.admin, // 0 = user login, 1 = admin login
+        username: body.username,
+        password: body.password
+    }
+    if (data.admin){
+        if (username == admin.username && password == admin.password){
+            res.sendStatus(200);
+        }
+        res.sendStatus(400);
+    }
+    else{
+        sql = `SELECT * FROM customer WHERE email = ? AND password = ?`
+        connection.query(sql, [data.username, data.password],function (error, results, fields) {
+            if (error) res.sendStatus(400);
+            if (results.length == 0){
+                res.sendStatus(400);
+            }
+            res.sendStatus(200);
+          });
+    }
+});
+
+// POST Register Route Setup
+app.post("/register",(req,res)=>{
+    let body = req.json();
+    const data = {
+        ssn: body.ssn,
+        email: body.email,
+        password: body.password,
+        ph_num: body.ph_num,
+        name: body.name,
+        age: body.age,
+        gender: body.gender
+    }
+
+    sql = `insert into customer values (?, ?, ?, ?, ?, ?, ?);`
+    connection.query(sql, [data.ssn, data.email, data.password, data.ph_num, data.name, data.age, data.gender],function (error, results, fields) {
+            if (error) res.sendStatus(400);
+            res.sendStatus(200);
+        });
+    
+});
+
