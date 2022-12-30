@@ -10,7 +10,7 @@ var dBData = {
 };
 
 const admin = {
-    username: "admin",
+    username: "admin@admin.com",
     password: "105289c3d80dc3255f11aab58c456b58" // adamkikha md5
 }
 
@@ -98,33 +98,41 @@ app.post("/post",(req,res)=>{
 
 // POST Login Route Setup
 app.post("/login",(req,res)=>{
-    let body = req.json();
+    let body = req.body;
     const data = {
         admin: body.admin, // 0 = user login, 1 = admin login
-        username: body.username,
+        username: body.email,
         password: body.password
     }
     if (data.admin){
-        if (username == admin.username && password == admin.password){
+        if (data.username == admin.username && data.password == admin.password){
             res.sendStatus(200);
+            return;
         }
         res.sendStatus(400);
+        return;
     }
     else{
         sql = `SELECT * FROM customer WHERE email = ? AND password = ?`
         connection.query(sql, [data.username, data.password],function (error, results, fields) {
-            if (error) res.sendStatus(400);
+            if (error){
+                res.sendStatus(400);
+                return;
+            } 
+                
             if (results.length == 0){
                 res.sendStatus(400);
+                return;
             }
             res.sendStatus(200);
+            return;
           });
     }
 });
 
 // POST Register Route Setup
 app.post("/register",(req,res)=>{
-    let body = req.json();
+    let body = req.body;
     const data = {
         ssn: body.ssn,
         email: body.email,
@@ -137,20 +145,25 @@ app.post("/register",(req,res)=>{
 
     sql = `insert into customer values (?, ?, ?, ?, ?, ?, ?);`
     connection.query(sql, [data.ssn, data.email, data.password, data.ph_num, data.name, data.age, data.gender],function (error, results, fields) {
-            if (error) res.sendStatus(400);
+            if (error) {res.sendStatus(400);
+                return;}
             res.sendStatus(200);
+            return;
         });
     
 });
 
 // POST User Init Setup
 app.post("/userinit",(req,res)=>{
-    let body = req.json();
+    let body = req.body;
     sql = `SELECT * FROM customer WHERE email = ? AND password = ?`
     connection.query(sql, [body.username, body.password],function (error, results, fields) {
-        if (error) res.sendStatus(400);
+        if (error) {res.sendStatus(400);
+            return;
+        }
         if (results.length == 0){
             res.sendStatus(400);
+            return;
         }
         sql = `SELECT ssn, email, name, ph_num, age, gender, model, plate_id, s_date, d_date, cancelled, R_id FROM reserve
         NATURAL JOIN customer
@@ -158,7 +171,10 @@ app.post("/userinit",(req,res)=>{
         WHERE ssn = ?;`;
 
         connection.query(sql, [results[0][0]],function (error, results2, fields) {
-            if (error) res.sendStatus(400);
+            if (error) {res.sendStatus(400);
+                return;
+            }
+            res.sendStatus(200);
                 // return OK response with user reservations
             });
         });
