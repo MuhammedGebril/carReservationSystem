@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <title>Login/Register</title>
+        <link rel="stylesheet" href="loginregister.css">
+    </head>
+
+    <script>
+        let errors = "";
+    
+        function validateForm() {
+          let mail = document.forms["register"]["email"].value;
+          let pass1 = document.forms["register"]["pass1"].value;
+          let pass2 = document.forms["register"]["pass2"].value;
+          let age = document.forms["register"]["age"].value;
+          var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+          
+          if (!mail.match(validRegex)) {
+              errors += "Invalid email address\n"
+          }
+          if (pass1.length < 8) {
+            errors+="Password must have at least 8 characters\n";
+          }
+          if(pass1!=pass2){
+            errors += "Password and confirm password not equal\n"
+          }
+          if (isNaN(age) || age < 18 || age > 80) {
+            errors += "Invalid age\n";
+          }
+
+          if (errors != ""){
+            alert(errors);
+            errors = "";
+            return false;
+          }
+        }
+    
+      </script>
+    
+    <body>
+        <div class = "hero">
+            <div class = "form-box">
+                <div class = "button-box">
+                    <div id = "btn"></div>
+                        <button type = "button" class="toggle-btn" onclick="login()">Log In</button>
+                        <button type = "button" class="toggle-btn" onclick="register()">Register</button>
+
+                </div>
+            <form id ="login" class="input-group">
+                <input type="text" class="input-field" placeholder="Enter Email" required>
+                <input type="password" class="input-field" placeholder="Enter Password" required> 
+                <fieldset>
+                    <div>
+                        <br>
+                        <input type="radio" id="admin" name="admin" value="admin">
+                        <label for="admin">Admin</label>
+                        <input type="radio" id="user" name="admin" value="user" checked="checked">
+                        <label for="user">User</label><br>
+                    </div>
+                </fieldset>
+                <div>  
+                    <br>  
+                    <button type="Submit" class="submit-btn">Log in</button>
+                </div>
+            </form>
+            <form id="register"  action="hello.php" method="post" class="input-group" onsubmit = "return validateForm()">
+                <input type="text" class="input-field" placeholder="Enter name" required>
+                <input type="text" class="input-field" id="email" placeholder="Enter Email" required>
+                <input type="password" class="input-field" id="pass1" placeholder="Enter Password" required>
+                <input type="password" class="input-field" id="pass2" placeholder="Confirm Password" required>
+                <input type="text" class="input-field" placeholder="Enter SSN" required>
+                <input type="text" class="input-field" placeholder="Enter phone number" required>
+                <input type="text" class="input-field" id="age" placeholder="Enter Age" required><br>
+                <div class="dropdown">
+                    <br>
+                    Gender: 
+                    <select name="membership" id="membership">
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                    <div>
+                        <br>
+                <button type="Submit" class="submit-btn">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            var x = document.getElementById("login");
+            var y = document.getElementById("register");
+            var z = document.getElementById("btn");
+
+            function register(){
+                
+                x.style.left="-400px";
+                y.style.left="50px";
+                z.style.left="110px";
+            }
+
+            function login(){
+                x.style.left="50px";
+                y.style.left="450px";
+                z.style.left="0px";
+            }
+
+        </script>
+    </body>
+</html>
