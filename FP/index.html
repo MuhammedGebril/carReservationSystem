@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Manipulating the DOM</title>
+  <title>Car Agency</title>
   <!-- Load Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap" rel="stylesheet">  <!-- Load Styles -->
   <link href="styles.css" rel="stylesheet">
@@ -21,6 +21,8 @@
   <main>
   <div id="search">
     <h3>advanced search</h3>
+    <button onclick="filter()">Filter</button>
+    <button onclick="resetFilter()">Reset Filters</button>
     <ul id="searchPanel">
       <ul id="makes"><h4>makes:</h4></ul>
       <ul id="models"><h4>models:</h4></ul>
