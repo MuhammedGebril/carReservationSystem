@@ -1,2 +1,2 @@
 # carReservationSystem
-a car reservation system nodeJs, mySQL and phpMyAdmin
+a car reservation system that uses nodeJs and mySQL

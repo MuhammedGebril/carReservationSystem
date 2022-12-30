@@ -98,3 +98,6 @@ insert into customer values ('407-20-0367', 'oswalough2o@jiathis.com', '82727735
 insert into customer values ('622-65-8648', 'cfrosch2p@rakuten.co.jp', '9c145af5fd32a44fccd6822ba697950e', '224-539-1158', 'Codie Frosch', 50, 'M');
 insert into customer values ('613-82-8474', 'sbalharrie2q@forbes.com', '18cedfb39f360294a9b35e5e7745193e', '518-581-2371', 'Sam Balharrie', 26, 'F');
 insert into customer values ('756-96-5766', 'ohanton2r@delicious.com', 'c668ec7a5e9c09d453b5142096927623', '615-936-8108', 'Orelia Hanton', 52, 'F');
+insert into customer values ('656-40-0267', 'ahmed@gmail.com', '32aa2fd87338e241978c48ab319641bc', '01001278665', 'Ahmed Mohamed', 30, 'M');
+insert into customer values ('632-17-5513', 'mostafa@gmail.com', '8cb9acc7336b9d2a083529d1f9095862', '01155910034', 'Mostafa Ashraf', 27, 'M');
+insert into customer values ('668-23-8043', 'zeyad@gmail.com', '7ee5c6c4d3dd9ca524e959575fe7279d', '01098035789', 'Zeyad Sherif', 42, 'M');
