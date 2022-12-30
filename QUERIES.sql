@@ -13,7 +13,6 @@ WHERE plate_id = {plate} AND s_date >= {start} AND s_date <= {end};
 
 -- The status of all cars on a specific day
 -- {date}
-
 SELECT A.date, A.recent_status, A.plate_id FROM `car_status` AS A
 WHERE (A.date, A.plate_id) IN (
 SELECT MAX(B.`date`), B.plate_id FROM `car_status` AS B
@@ -30,8 +29,8 @@ WHERE ssn = {ssn};
 
 -- Daily payments within specific period
 -- {start} {end}
-SELECT SUM(d_price * DATEDIFF(d_date,`date`)) FROM `pickup`
+SELECT SUM(d_price * DATEDIFF(d_date,s_date)) FROM `payment`
 NATURAL JOIN `reserve`
 NATURAL JOIN `car`
-WHERE pickup.date >= {start} AND pickup.date <= {end}
-GROUP BY pickup.R_id;
+WHERE payment.date >= {start} AND payment.date <= {end}
+GROUP BY payment.R_id;
