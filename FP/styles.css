@@ -17,31 +17,20 @@ body {
     background-image: linear-gradient(rgb(209, 208, 208),rgb(255, 248, 248));
 }
 
-#adminLog {
-    position: relative;
-    top: 0px;
-    height: 20px;
-    width: 7rem;
-    background-image: linear-gradient(rgb(255, 248, 248),rgb(209, 208, 208));;
-    border-width: 0px;
-}
-
-#adminLog:hover {
-    background-image: linear-gradient(grey,black);
-    color: #fff;
-    transition: ease 1s all;
-}
-
-#userLog {
+button {
     display: grid;
     justify-content: center;
     align-content: center;
     background-image: linear-gradient(rgb(255, 248, 248),rgb(209, 208, 208));
+    border-width: 0;
+}
+
+#userLog {
     height: 4rem;
     width: 8rem;
 }
 
-#userLog:hover {
+button:hover {
     background-image: linear-gradient(grey,black);
     color: #fff;
     transition: ease 1s all;
@@ -87,4 +76,23 @@ ul{
 
 Img {
     height: 100px;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+input[type="number"]{
+    width:40%;
+}
+
+li{
+    padding-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
 }
