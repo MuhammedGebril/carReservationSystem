@@ -58,21 +58,17 @@ function printData(){
     document.getElementById("c_price").textContent = "daily price: "+data[this.id].d_price;
 }
 
-function filter() {
-    let c = this.name;
-    let img;
-    if (this.checked) {
-        while (this.model === data[c].model) {
-            img = document.getElementById(c);
-            img.style = "";
-            c++;
+function toggle_model() {
+    let makes = document.getElementById("makes").getElementsByTagName("input");
+    let c = 0;
+    while (c < makes.length) {
+        if (this.make === makes[c].make) {
+            if(this.checked && !makes[c].checked){
+                makes[c].click();
+                break;
+            }
         }
-    } else {
-        while (this.model === data[c].model) {
-            img = document.getElementById(c);
-            img.style = "display:none; visibility:hidden;";
-            c++;
-        }
+        c++;
     }
 }
 
@@ -90,7 +86,7 @@ function addImgs(models) {
             box.model = car.model;
             box.type = "checkbox";
             box.checked = "True";
-            box.addEventListener("change",filter);
+            box.addEventListener("change",toggle_model);
             item.appendChild(box);
             frag.appendChild(item);
         }
@@ -103,7 +99,7 @@ function addImgs(models) {
             box.model = car.model;
             box.type = "checkbox";
             box.checked = "True";
-            box.addEventListener("change",filter);
+            box.addEventListener("change",toggle_model);
             item.appendChild(box);
             frag.appendChild(item);
         }
@@ -117,11 +113,13 @@ function addImgs(models) {
     document.getElementById("items").appendChild(imgs);
 }
 
-function filter_make() {
+function toggle_make() {
     let models = document.getElementById("models").querySelectorAll("input");
     for (let model of models) {
         if(model.make === this.make){
-            model.click();    
+            if(this.checked !== model.checked){
+                model.click();    
+            }
         }
     }
 }
@@ -136,11 +134,40 @@ function addMakes(makes) {
         box.make = make.make;
         box.type = "checkbox";
         box.checked = "True";
-        box.addEventListener("change",filter_make);
+        box.addEventListener("change",toggle_make);
         item.appendChild(box);
         frag.appendChild(item);
     }
     document.getElementById("makes").appendChild(frag);
+}
+
+function filter() {
+    let c = 0;
+    let imgs = document.getElementById("items").getElementsByTagName("img");
+    let models = document.getElementById("models").getElementsByTagName("input");
+    let colors = document.getElementById("colors").getElementsByTagName("input");
+    let color;
+    let model;
+    while (c < imgs.length) {
+        for (let i = 0; i < models.length; i++) {
+            if (data[c].model === models[i].model) {
+                model = models[i];
+                break;
+            }
+        }
+        for (let i = 0; i < colors.length; i++) {
+            if (data[c].color === colors[i]["data-color"]) {
+                color = colors[i];
+                break;
+            }
+        }
+        if(color.checked && model.checked){
+            if(!imgs[c].checkVisibility()) imgs[c].style = "";
+        } else if (imgs[c].checkVisibility()){
+            imgs[c].style = "display:none; visibility:hidden;"
+        }
+        c++;
+    }    
 }
 
 function addColors(colors) {
@@ -150,6 +177,7 @@ function addColors(colors) {
         item = document.createElement("label");
         item.textContent = color.color+" ";
         box = document.createElement("input");
+        box["data-color"] = color.color;
         box.type = "checkbox";
         box.checked = "True";
         item.appendChild(box);
