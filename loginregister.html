@@ -35,7 +35,12 @@
                      });
                      try {
                          const res = await response.json();
-                         // check if response OK or BAD
+                         if (!res.ok){
+                             alert("Admin login failed!");
+                            return false;
+                         }
+                         
+                         // OTHERWISE REDIRECT TO ADMIN PAGE
                      }catch(error) {
                        console.log("Login error", error);
                      }
@@ -54,8 +59,11 @@
                      });
                      try {
                          const res = await response.json();
-                         // check if response OK or BAD
-                         // and take needed data
+                         if (!res.ok){
+                             alert("User login failed!");
+                             return false;
+                         }
+                         // OTHERWISE REDIRECT TO FP
                      }catch(error) {
                        console.log("Login error", error);
                      }
@@ -108,7 +116,11 @@
                  });
                  try {
                      const res = await response.json();
-                     // check if response OK or BAD
+                     if (!res.ok){
+                        alert("User registration failed!");
+                        return false;
+                     }
+                     // login?
                  }catch(error) {
                    console.log("Register error", error);
                  }
