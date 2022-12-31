@@ -139,7 +139,6 @@ INSERT INTO car_status(plate_id,date,recent_status) VALUES ('YD-45563','2022-02-
 INSERT INTO car_status(plate_id,date,recent_status) VALUES ('PX-35291','2022-06-15 07:31:03','active');
 INSERT INTO car_status(plate_id,date,recent_status) VALUES ('XF-25904','2022-06-12 08:36:20','active');
 INSERT INTO car_status(plate_id,date,recent_status) VALUES ('NH-21451','2022-04-16 09:43:50','active');
-INSERT INTO car_status(plate_id,date,recent_status) VALUES ('KG-06530','2022-07-09 21:55:25','active');
 INSERT INTO car_status(plate_id,date,recent_status) VALUES ('MZ-60506','2022-04-07 04:39:44','out_of_service');
 INSERT INTO car_status(plate_id,date,recent_status) VALUES ('ZE-97176','2022-08-28 03:26:03','active');
 INSERT INTO car_status(plate_id,date,recent_status) VALUES ('OC-25263','2022-08-25 05:04:37','active');
