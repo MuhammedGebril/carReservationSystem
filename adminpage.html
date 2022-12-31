@@ -110,7 +110,7 @@
           </table>
         </div>
         <div id="inputs3" class="hide">
-          <input type="date" id="date" required />
+          <input type="date" id="date3" required />
           <label for="date" style="background: #fff">Specific Day</label><br />
           <input
             type="button"
@@ -129,7 +129,7 @@
           </table>
         </div>
         <div id="inputs4" class="hide">
-          <input type="text" id="ssn" placeholder=" Enter SSN" required />
+          <input type="text" id="ssn4" placeholder=" Enter SSN" required />
           <br />
           <input
             type="button"
@@ -153,9 +153,9 @@
           </table>
         </div>
         <div id="inputs5" class="hide">
-          <input type="date" id="s_date" />
+          <input type="date" id="s_date5" />
           <label for="s_date" style="background: #fff">Start Date</label><br />
-          <input type="date" id="e_date" />
+          <input type="date" id="d_date5" />
           <label for="e_date" style="background: #fff">End Date</label><br />
           <input
             type="button"
@@ -292,7 +292,17 @@
               });
           }
           function query3() {
-            fetch("https://jsonplaceholder.typicode.com/todos")
+            document.getElementById("res_table3").innerHTML = reset2;
+            let cur_date = document.getElementById("date3").value;
+            let data = { date: cur_date };
+            fetch("http://localhost:8000/car_status", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
               .then(function (response) {
                 return response.json();
               })
@@ -302,7 +312,17 @@
               });
           }
           function query4() {
-            fetch("https://jsonplaceholder.typicode.com/todos")
+            document.getElementById("res_table4").innerHTML = reset2;
+            let user_ssn = document.getElementById("ssn4").value;
+            let data = { ssn: user_ssn };
+            fetch("http://localhost:8000/customer_reservation", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
               .then(function (response) {
                 return response.json();
               })
@@ -312,7 +332,18 @@
               });
           }
           function query5() {
-            fetch("https://jsonplaceholder.typicode.com/todos")
+            document.getElementById("res_table5").innerHTML = reset2;
+            let s_date = document.getElementById("s_date5").value;
+            let e_date = document.getElementById("d_date5").value;
+            let data = { start: s_date5, end: d_date5 };
+            fetch("http://localhost:8000/daily_payment", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
               .then(function (response) {
                 return response.json();
               })
