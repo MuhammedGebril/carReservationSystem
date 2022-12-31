@@ -1,0 +1,156 @@
+<!DOCTYPE >
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Reservations</title>
+    <!-- Load Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Load Styles -->
+    <link href="styles.css" rel="stylesheet" />
+    <link href="nouislider.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="#" />
+    <script src="nouislider.js"></script>
+  </head>
+  <body>
+    <!-- HTML Follows BEM naming conventions 
+  IDs are only used for sections to connect menu achors to sections -->
+    <header class="page__header">
+      <div>
+        <h1>Car Rental Agency</h1>
+      </div>
+      <button
+        id="userLog"
+        onclick="window.location.href='/FP/loginregister.html'"
+      >
+        Login or Register
+      </button>
+    </header>
+    <main>
+      <div id="items" class="reserve"></div>
+      <div id="panel">
+        <h3>DETAILS</h3>
+        <ul id="detailsPanel" car="-1">
+          <li id="c_plate_id">Plate ID</li>
+          <li id="c_make">Make</li>
+          <li id="c_model">Model</li>
+          <li id="c_year">Year</li>
+          <li id="c_color">Color</li>
+          <li id="c_milage">Milage</li>
+          <li id="c_hp">Horse Power</li>
+          <li id="c_price">Price</li>
+          <li id="cancelled">Cancelled</li>
+          <div id="reserveSection" class="hidden">
+            <li><h4>Reservation:</h4></li>
+            <label id="s_date"> Start Date: </label>
+            <br />
+            <label id="e_date"> End Date: </label>
+            <br />
+            <li id="totp">Total Payment:</li>
+            <button id="cancelReserve" onclick="cancelReserve();">
+              Cancel Reservation
+            </button>
+          </div>
+        </ul>
+      </div>
+    </main>
+    <footer class="page__footer"></footer>
+    <script>
+      var reservations = {};
+      const init = async () => {
+        if (typeof sessionStorage != "undefined") {
+          if (sessionStorage.getItem("reservations")) {
+            reservations = sessionStorage.getItem("reservations");
+            reservations = await JSON.parse(reservations);
+            addImgs(reservations);
+          }
+        }
+      };
+      init();
+
+      const cancelReserve = async () => {
+        let c = document.getElementById("detailsPanel").car;
+        let data = {
+          plate_id: reservations[c].plate_id,
+          r_id: reservations[c].R_id,
+        };
+        const response = await fetch(
+          "http://localhost:8000/cancelreservation",
+          {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        try {
+          const res = await response;
+          if (!res.ok) {
+            return false;
+          }
+          document.getElementById("cancelled").textContent = "cancelled: true";
+          reservations[c].cancelled = 1;
+          sessionStorage.setItem("reservations", reservations);
+        } catch (error) {
+          console.log("Cancellation error", error);
+        }
+      };
+
+      function addImgs(models) {
+        let c = 0;
+        let imgs = document.createDocumentFragment();
+        for (let car of models) {
+          img = document.createElement("img");
+          img.id = c++;
+          img.src =
+            "https://cdn.imagin.studio/getImage?customer=egmuhammedgebrilcompany&make=" +
+            car.make +
+            "&modelFamily=" +
+            car.model;
+          img.addEventListener("click", printData);
+          imgs.appendChild(img);
+        }
+        document.getElementById("items").appendChild(imgs);
+      }
+      function printData() {
+        document.getElementById("detailsPanel").car = this.id;
+        document.getElementById("c_plate_id").textContent =
+          "make: " + reservations[this.id].plate_id;
+        document.getElementById("c_make").textContent =
+          "make: " + reservations[this.id].make;
+        document.getElementById("c_model").textContent =
+          "model: " + reservations[this.id].model;
+        document.getElementById("c_year").textContent =
+          "year: " + reservations[this.id].year;
+        document.getElementById("c_color").textContent =
+          "color: " + reservations[this.id].color;
+        document.getElementById("c_milage").textContent =
+          "milage: " + reservations[this.id].milage;
+        document.getElementById("c_hp").textContent =
+          "horse power: " + reservations[this.id].hp;
+        document.getElementById("c_price").textContent =
+          "daily price: " + reservations[this.id].d_price;
+        document.getElementById("cancelled").textContent =
+          "cancelled: " + (reservations[this.id].cancelled ? "true" : "false");
+        document.getElementById("s_date").textContent =
+          "start date: " + reservations[this.id].s_date;
+        document.getElementById("e_date").textContent =
+          "end date: " + reservations[this.id].d_date;
+        var s_date = new Date(reservations[this.id].s_date.slice(0, 10));
+        var d_date = new Date(reservations[this.id].d_date.slice(0, 10));
+        var Difference_In_Time = d_date.getTime() - s_date.getTime();
+        var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+        document.getElementById("totp").textContent =
+          "total payment: " +
+          Difference_In_Days * reservations[this.id].d_price;
+        document.getElementById("reserveSection").className = "";
+      }
+    </script>
+  </body>
+</html>

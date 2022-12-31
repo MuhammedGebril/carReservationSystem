@@ -1,0 +1,123 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.hero{
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(background.png);
+    background-color: black;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+.form-box{
+    width: 400px;
+    height: 600px;
+    position: relative;
+    margin: 5% auto;
+    background: rgb(218, 235, 232);
+    padding: 5px;
+    overflow: hidden;
+    border-radius: 15px 15px 15px 15px ;
+    opacity: 0.9;
+}
+.button-box{
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #4848481f;
+    border-radius: 30px;
+    opacity: 0.9;
+}
+.toggle-btn{
+    padding:10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    opacity: 1;
+}
+#btn{
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: linear-gradient(to right,#3c3b3c , #767675);
+    border-radius: 30px;
+    transition: .5s;
+    opacity: 1;
+}
+.input-group{
+    top: 180px;
+    position: absolute;
+    width: 280px;
+    transition: .5s;
+}
+#register{
+    height: 80%;
+    top: 100px;
+}
+.input-field{
+    width: 100%;
+    padding: 10px 0;
+    padding-bottom: 5px; ;
+    margin: 5px 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid rgb(11, 11, 11);
+    outline: none;
+    background: transparent;
+}
+.dropdown{
+    padding: 15x;
+    color:rgb(11, 11, 11);
+    font-size: 16px;
+    border: none;
+    display: inline;
+}
+.submit-btn{
+    width: 85%;
+    padding: 1em;
+    padding-top: 10px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: linear-gradient(to right,#2e2c2d , #767675);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+}
+
+span{
+    color: #777;
+    font-size: 12px;
+    bottom: 68px;
+    position: absolute;
+}
+#login{
+    left: 50px;
+}
+#register{
+    left: 450px;
+}
+#admin{
+    padding: 1em;
+}
+#user{
+    padding: 1em;
+}
+label{
+    padding:5px;
+    color:#222;
+    font-family:corbel,sans-serif;
+    font-size: 14px;
+    margin: 10px;
+}
+fieldset{
+    border: none;
+}

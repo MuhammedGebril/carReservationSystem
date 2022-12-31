@@ -1,0 +1,147 @@
+<!DOCTYPE >
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Car Agency</title>
+    <!-- Load Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Load Styles -->
+    <link href="styles.css" rel="stylesheet" />
+    <link href="nouislider.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="#" />
+    <script src="nouislider.js"></script>
+  </head>
+  <body class="hero">
+    <!-- HTML Follows BEM naming conventions 
+  IDs are only used for sections to connect menu achors to sections -->
+    <header class="page__header">
+      <div>
+        <h1>Car Rental Agency</h1>
+      </div>
+      <button
+        class="button-box"
+        id="userLog"
+        onclick="window.location.href='/FP/loginregister.html'"
+      >
+        Login or Register
+      </button>
+    </header>
+    <main>
+      <div id="search">
+        <button
+          class="button-box"
+          onclick="window.location.href='/FP/reservations.html'"
+        >
+          Reservations
+        </button>
+        <h3>Advanced Search</h3>
+        <button class="button-box" onclick="filter()">Filter</button>
+        <br />
+        <button class="button-box" onclick="resetFilter()">
+          Reset Filters
+        </button>
+        <ul id="searchPanel">
+          <ul id="makes">
+            <h4>Makes:</h4>
+          </ul>
+          <ul id="models">
+            <h4>Models:</h4>
+          </ul>
+          <li>
+            <h4>Year:</h4>
+            <div class="inputBox">
+              <input type="number" slider="0" onchange="updateS()" id="yearL" />
+              <input type="number" slider="0" onchange="updateS()" id="yearU" />
+            </div>
+            <div slider="0" id="yearSlider"></div>
+          </li>
+          <ul id="colors">
+            <h4>Colors:</h4>
+          </ul>
+          <li>
+            <h4>Milage:</h4>
+            <div class="inputBox">
+              <input
+                type="number"
+                slider="1"
+                onchange="updateS()"
+                id="milageL"
+              />
+              <input
+                type="number"
+                slider="1"
+                onchange="updateS()"
+                id="milageU"
+              />
+            </div>
+            <div slider="1" id="milageSlider"></div>
+          </li>
+          <li>
+            <h4>Horse Power:</h4>
+            <div class="inputBox">
+              <input type="number" slider="2" onchange="updateS()" id="hpL" />
+              <input type="number" slider="2" onchange="updateS()" id="hpU" />
+            </div>
+            <div slider="2" id="hpSlider"></div>
+          </li>
+          <li>
+            <h4>Price:</h4>
+            <div class="inputBox">
+              <input
+                type="number"
+                slider="3"
+                onchange="updateS()"
+                id="priceL"
+              />
+              <input
+                type="number"
+                slider="3"
+                onchange="updateS()"
+                id="priceU"
+              />
+            </div>
+            <div slider="3" id="priceSlider"></div>
+          </li>
+        </ul>
+      </div>
+      <div id="items" class="hero"></div>
+      <div id="panel">
+        <h3>DETAILS</h3>
+        <ul id="detailsPanel" car="-1">
+          <li id="c_plate_id">Plate ID</li>
+          <li id="c_make">Make</li>
+          <li id="c_model">Model</li>
+          <li id="c_year">Year</li>
+          <li id="c_color">Color</li>
+          <li id="c_milage">Milage</li>
+          <li id="c_hp">Horse Power</li>
+          <li id="c_price">Price</li>
+          <div id="reserveSection" class="hidden">
+            <li><h4>Reservation:</h4></li>
+            <label>
+              Start Date:
+              <input type="Date" id="s_date" />
+            </label>
+            <br />
+            <label>
+              End Date:
+              <input type="Date" id="d_date" />
+            </label>
+            <br />
+            <li id="totp">total payment:</li>
+            <button class="button-box" id="reserve" onclick="reserve();">
+              Reserve
+            </button>
+          </div>
+        </ul>
+      </div>
+    </main>
+    <footer class="page__footer"></footer>
+    <script src="app.js"></script>
+  </body>
+</html>
