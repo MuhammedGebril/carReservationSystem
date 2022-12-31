@@ -142,8 +142,9 @@
               <tr>
                 <th>ssn</th>
                 <th>email</th>
-                <th>ph_num</th>
                 <th>name</th>
+                <th>password</th>
+                <th>ph_num</th>
                 <th>age</th>
                 <th>gender</th>
                 <th>model</th>
@@ -167,6 +168,9 @@
             <thead>
               <tr>
                 <th>Sum</th>
+                <th>Year</th>
+                <th>Month</th>
+                <th>Day</th>
               </tr>
             </thead>
           </table>
@@ -176,8 +180,8 @@
         <div id="inputs6" class="hide">
           <input
             type="text"
-            id="ssn"
-            placeholder=" Enter registration_id"
+            id="r_id"
+            placeholder=" Enter reservation id"
             required
           />
           <br />
@@ -187,17 +191,47 @@
             onclick="query6()"
             value="Display"
           />
-          <input type="button" class="button-box2" onclick="" value="Confirm" />
-          <input type="button" class="button-box3" onclick="" value="Cancel" />
+          <input
+            id="cancelling"
+            type="button"
+            class="hide"
+            onclick="query9()"
+            value="Cancel"
+          />
+          <input
+            id="paying"
+            class="hide"
+            type="button"
+            onclick="query7()"
+            value="Pay"
+          />
+          <div id="returning" class="hide">
+            <input
+              type="button"
+              class="button-box2"
+              onclick="query8()"
+              value="Return"
+            />
+            <select id="retsel">
+              <option>Active</option>
+              <option>Out of Service</option>
+            </select>
+          </div>
+
           <table id="res_table6">
             <thead>
               <tr>
+                <th>ssn</th>
+                <th>name</th>
+                <th>ph_num</th>
+                <th>make</th>
+                <th>model</th>
                 <th>plate_id</th>
                 <th>s_date</th>
                 <th>d_date</th>
-                <th>ssn</th>
-                <th>R_id</th>
                 <th>cancelled</th>
+                <th>payment date</th>
+                <th>returned</th>
               </tr>
             </thead>
           </table>
@@ -248,6 +282,52 @@
                   <th>is_reserved</th>
                 </tr>
               </thead>`;
+          var reset3 = `<thead>
+                <tr>
+                  <th>date</th>
+                  <th>recent_status</th>
+                  <th>plate_id</th>
+                </tr>
+              </thead>`;
+
+          var reset4 = `<thead>
+              <tr>
+                <th>ssn</th>
+                <th>email</th>
+                <th>name</th>
+                <th>password</th>
+                <th>ph_num</th>
+                <th>age</th>
+                <th>gender</th>
+                <th>model</th>
+                <th>plate_id</th>
+              </tr>
+            </thead>`;
+
+          var reset5 = `<thead>
+              <tr>
+                <th>Sum</th>
+                <th>Year</th>
+                <th>Month</th>
+                <th>Day</th>
+              </tr>
+            </thead>`;
+
+          var reset6 = `<thead>
+                <th>ssn</th>
+                <th>name</th>
+                <th>ph_num</th>
+                <th>make</th>
+                <th>model</th>
+                <th>plate_id</th>
+                <th>s_date</th>
+                <th>d_date</th>
+                <th>cancelled</th>
+                <th>payment date</th>
+                <th>returned</th>
+              </tr>
+            </thead>`;
+
           function query1() {
             document.getElementById("res_table1").innerHTML = reset1;
             let s_date = document.getElementById("s_date").value;
@@ -292,7 +372,7 @@
               });
           }
           function query3() {
-            document.getElementById("res_table3").innerHTML = reset2;
+            document.getElementById("res_table3").innerHTML = reset3;
             let cur_date = document.getElementById("date3").value;
             let data = { date: cur_date };
             fetch("http://localhost:8000/car_status", {
@@ -312,7 +392,7 @@
               });
           }
           function query4() {
-            document.getElementById("res_table4").innerHTML = reset2;
+            document.getElementById("res_table4").innerHTML = reset4;
             let user_ssn = document.getElementById("ssn4").value;
             let data = { ssn: user_ssn };
             fetch("http://localhost:8000/customer_reservation", {
@@ -332,10 +412,10 @@
               });
           }
           function query5() {
-            document.getElementById("res_table5").innerHTML = reset2;
+            document.getElementById("res_table5").innerHTML = reset5;
             let s_date = document.getElementById("s_date5").value;
             let e_date = document.getElementById("d_date5").value;
-            let data = { start: s_date5, end: d_date5 };
+            let data = { start: s_date, end: e_date };
             fetch("http://localhost:8000/daily_payment", {
               method: "POST",
               credentials: "same-origin",
@@ -352,16 +432,176 @@
                 renderDataInTheTable(apiJsonData, "res_table5");
               });
           }
-          function query6() {
-            fetch("https://jsonplaceholder.typicode.com/todos")
+          async function query6() {
+            let returned = false;
+            document.getElementById("res_table6").innerHTML = reset6;
+            let r_id = document.getElementById("r_id").value;
+            let data = { R_id: r_id };
+            console.log(data);
+            let apiJD;
+            await fetch("http://localhost:8000/reservation", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
               .then(function (response) {
                 return response.json();
               })
               .then(function (apiJsonData) {
-                console.log(apiJsonData);
-                renderDataInTheTable(apiJsonData, "res_table6");
+                apiJD = apiJsonData;
+              });
+            if (apiJD[0].date === "") {
+              returned = false;
+            } else {
+              data = {
+                plate_id: apiJD[0].plate_id,
+                date: apiJD[0].date,
+              };
+              await fetch("http://localhost:8000/checkreturn", {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+              })
+                .then(function (response) {
+                  if (response) {
+                    return response.json();
+                  } else {
+                    return false;
+                  }
+                })
+                .then(function (apiJsonData) {
+                  if (apiJsonData) {
+                    returned = apiJsonData.length > 0;
+                  } else {
+                    return false;
+                  }
+                });
+            }
+            console.log(apiJD);
+            console.log(returned);
+            for (let rec of apiJD) {
+              rec.cancelled = rec.cancelled ? "true" : "false";
+              if (rec.date !== "") {
+                rec.is_reserved = returned;
+                rec.is_reserved = rec.is_reserved ? "true" : "false";
+              } else {
+                rec.is_reserved = "";
+              }
+            }
+            console.log(apiJD);
+            renderDataInTheTable(apiJD, "res_table6");
+            let rec = document
+              .getElementById("res_table6")
+              .getElementsByTagName("td");
+            if (
+              // if returned or not picked up or cancelled
+              rec[10].textContent === "true" ||
+              rec[8].textContent === "true"
+            ) {
+              document.getElementById("returning").className = "hide";
+              document.getElementById("paying").className = "hide";
+              document.getElementById("cancelling").className = "hide";
+            } else {
+              if (rec[9].textContent === "") {
+                document.getElementById("paying").className = "button-box2";
+                document.getElementById("returning").className = "hide";
+                document.getElementById("cancelling").className = "button-box3";
+              } else {
+                document.getElementById("paying").className = "hide";
+                document.getElementById("returning").className = "";
+                document.getElementById("cancelling").className = "hide";
+              }
+            }
+          }
+          function query7() {
+            let rec = document
+              .getElementById("res_table6")
+              .getElementsByTagName("td");
+            console.log(rec);
+            let p_id = rec[5].textContent;
+            let r_id = document.getElementById("r_id").value;
+            let data = { plate_id: p_id, R_id: r_id };
+            console.log(data);
+            fetch("http://localhost:8000/localpayment", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
+              .then(function (response) {
+                if (response) {
+                  return response.json();
+                } else {
+                  return false;
+                }
+              })
+              .then(function (apiJsonData) {
+                if (apiJsonData) {
+                  query6();
+                }
               });
           }
+
+          function query8() {
+            let rec = document
+              .getElementById("res_table6")
+              .getElementsByTagName("td");
+            let r_id = document.getElementById("r_id").value;
+            let p_id = rec[5].textContent;
+            let stat =
+              document.getElementById("retsel").value === "Active"
+                ? "active"
+                : "out_of_service";
+            let data = { plate_id: p_id, R_id: r_id, status: stat };
+            console.log(data);
+            fetch("http://localhost:8000/return", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (apiJsonData) {
+                query6();
+              });
+          }
+
+          function query9() {
+            let rec = document
+              .getElementById("res_table6")
+              .getElementsByTagName("td");
+            let r_id = document.getElementById("r_id").value;
+            let p_id = rec[5].textContent;
+            let data = { plate_id: p_id, R_id: r_id };
+            console.log(data);
+            fetch("http://localhost:8000/cancelreservation", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (apiJsonData) {
+                query6();
+              });
+          }
+
           function renderDataInTheTable(todos, table_id) {
             const mytable = document.getElementById(table_id);
             todos.forEach((todo) => {
