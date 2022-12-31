@@ -200,4 +200,48 @@ app.post("/car_reservations",(req,res)=>{
             return;
         });
 });
+app.post("/car_status",(req,res)=>{
+    let body = req.body;
+    sql = `SELECT A.date, A.recent_status, A.plate_id FROM car_status AS A
+    WHERE (A.date, A.plate_id) IN (
+    SELECT MAX(B.date), B.plate_id FROM car_status AS B
+        WHERE B.date < ?
+        GROUP BY B.plate_id;`;
+    connection.query(sql, [body.date],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            console.log(results);
+            res.status(200).send(results);
+            return;
+        });
+});
+app.post("/customer_reservation",(req,res)=>{
+    let body = req.body;
+    sql = `SELECT ssn, email, name, password, ph_num, age, gender, model, plate_id FROM reserve
+    NATURAL JOIN customer
+    NATURAL JOIN car
+    WHERE ssn = ?;`;
+    connection.query(sql, [body.ssn],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            console.log(results);
+            res.status(200).send(results);
+            return;
+        });
+});
+app.post("/daily_payment",(req,res)=>{
+    let body = req.body;
+    sql = `SELECT SUM(d_price * DATEDIFF(d_date,s_date)) FROM payment
+    NATURAL JOIN reserve
+    NATURAL JOIN car
+    WHERE payment.date >= ? AND payment.date <= ?
+    GROUP BY payment.R_id;`;
+    connection.query(sql, [body.start,body.end],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            console.log(results);
+            res.status(200).send(results);
+            return;
+        });
+});
 
