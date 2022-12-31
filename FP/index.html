@@ -32,6 +32,9 @@
     </header>
     <main>
       <div id="search">
+        <button onclick="window.location.href='/FP/reservations.html'">
+          Reservations
+        </button>
         <h3>advanced search</h3>
         <button onclick="filter()">Filter</button>
         <button onclick="resetFilter()">Reset Filters</button>
@@ -123,7 +126,7 @@
             </label>
             <br />
             <li id="totp">total payment:</li>
-            <button id="reserve">Reserve</button>
+            <button id="reserve" onclick="reserve();">Reserve</button>
           </div>
         </ul>
       </div>
