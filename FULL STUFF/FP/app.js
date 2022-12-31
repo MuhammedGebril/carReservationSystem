@@ -84,7 +84,6 @@ const init = async () =>{
         document.getElementById("userLog").disabled=true;
         document.getElementById("userLog").textContent="Welcome!";
         document.getElementById("signout").className="";
-        
         sessionStorage.setItem("reservations",JSON.stringify(user_info));
     }
     console.log(user_info);
@@ -374,14 +373,14 @@ function addColors(colors) {
 
 const reserveCar = async(s, d) =>{
     let p_id = data[document.getElementById("detailsPanel").car].plate_id;
-    let data = {s_date: s, d_date: d, my_ssn:ssn, plate_id: p_id}; 
+    let dat = {s_date: s, d_date: d, my_ssn:ssn, plate_id: p_id}; 
     const response = await fetch("http://localhost:8000/doreserve", {
         method: "POST", 
         credentials: "same-origin", 
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(dat)
     });
     try {
         const res = await response;
@@ -407,8 +406,7 @@ function reserve(){
         alert("Invalid date range!");
         return false;
     }
-
-
+    reserveCar(s_date,d_date);
 }
 
 document.addEventListener("DOMContentLoaded",init);
