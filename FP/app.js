@@ -81,6 +81,10 @@ const init = async () =>{
     }
     if (ssn != -1){
         await userInit(ssn);
+        document.getElementById("userLog").disabled=true;
+        document.getElementById("userLog").textContent="Welcome!";
+        document.getElementById("signout").className="";
+        
         sessionStorage.setItem("reservations",JSON.stringify(user_info));
     }
     console.log(user_info);
