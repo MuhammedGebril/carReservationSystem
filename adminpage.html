@@ -21,12 +21,12 @@
       <nav>
         <div class="side_navbar">
           <span> Queries</span>
-          <a href="#" onclick="showinput('inputs1')">Query 1 </a>
-          <a href="#" onclick="showinput('inputs2')">Query 2</a>
-          <a href="#" onclick="showinput('inputs3')">Query 3</a>
-          <a href="#" onclick="showinput('inputs4')">Query 4</a>
-          <a href="#" onclick="showinput('inputs5')">Query 5</a>
-          <a href="#" onclick="showinput('inputs6')">Query 6</a>
+          <a href="#" onclick="showinput('inputs1')">Reservations</a>
+          <a href="#" onclick="showinput('inputs2')">Car Reservations</a>
+          <a href="#" onclick="showinput('inputs3')">Car Status</a>
+          <a href="#" onclick="showinput('inputs4')">Customer Reservations</a>
+          <a href="#" onclick="showinput('inputs5')">Daily Payments</a>
+          <a href="#" onclick="showinput('inputs6')">Admin Control</a>
         </div>
       </nav>
 
@@ -526,7 +526,7 @@
             console.log(rec);
             let p_id = rec[5].textContent;
             let r_id = document.getElementById("r_id").value;
-            let data = { plate_id: p_id, R_id: r_id };
+            let data = { plate_id: p_id, R_id: r_id, paid: rec[9] };
             console.log(data);
             fetch("http://localhost:8000/localpayment", {
               method: "POST",
