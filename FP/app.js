@@ -31,6 +31,32 @@
 
 var data;
 var sliders = [];
+var ssn;
+var user_info;
+
+const userInit = async(s) =>{
+    let data = {"ssn":s}; 
+    const response = await fetch("http://localhost:8000/userinit", {
+        method: "POST", 
+        credentials: "same-origin", 
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    try {
+        const res = await response;
+        if (!res.ok){
+            return false;
+        }
+        user_info = await res.json();
+        return true;
+    }catch(error) {
+        console.log("Login error", error);
+    }
+}
+
+
 
 function updateS() {
     
@@ -45,11 +71,21 @@ function build(){
 }
 
 const init = async () =>{
-    var db;
+    user_info = {};
+    ssn = -1;
+    if(typeof(sessionStorage) != 'undefined') {
+        if (sessionStorage.getItem("mySsn")) {
+            ssn = sessionStorage.getItem("mySsn");
+        }
+    }
+    if (ssn != -1){
+        await userInit(ssn);
+    }
+    console.log(user_info);
     const request = await fetch("http://localhost:8000/init");
     try {
         // Transform into JSON
-        db = await request.json();
+        const db = await request.json();
         data = db.models;
         // Write updated data to DOM elements
         addMakes(db.makes);
