@@ -172,6 +172,26 @@ app.post("/userinit",(req,res)=>{
     });
 });
 
+app.post("/doreserve",(req,res)=>{
+    let body = req.body;
+    console.log(body);
+    sql = `UPDATE car
+    SET is_reserved=1
+    WHERE plate_id=?`;
+    connection.query(sql, [body.plate_id],function (error, results, fields) {
+        if (error) {res.sendStatus(400);
+            return;}
+            sql = `INSERT INTO reserve 
+            VALUES (?, ?, ?, ?, NULL, '0');`;
+            connection.query(sql, [body.plate_id, body.s_date, body.d_date, body.ssn],function (error, results, fields) {
+                if (error) {res.sendStatus(400);
+                    return;}
+                res.sendStatus(200);
+                return;
+            });
+    });   
+});
+
 app.post("/cancelreservation",(req,res)=>{
     let body = req.body;
     console.log(body);
@@ -291,6 +311,7 @@ app.post("/reservation",(req,res)=>{
 
 app.post("/localpayment",(req,res)=>{
     let body = req.body;
+    if (body.paid === ""){
     sql = `INSERT INTO car_status(plate_id,date,recent_status) VALUES (?,now(),'rented');`;
     connection.query(sql, [body.plate_id],function (error, results, fields) {
             if (error) {res.sendStatus(400);
@@ -308,6 +329,34 @@ app.post("/localpayment",(req,res)=>{
                                 res.status(200).send(results);
                                 return;
                             });
+                });
+        });
+    }
+    else{
+        sql = `insert into pickup(R_id,date) VALUES (?,now());`;
+        connection.query(sql, [body.R_id],function (error, results, fields) {
+                if (error) {res.sendStatus(400);
+                    return;}
+                console.log(body);
+                console.log(results);
+                res.status(200).send(results);
+                return;
+            });
+    }
+});
+
+
+app.post("/onlinepayment",(req,res)=>{
+    let body = req.body;
+    sql = `INSERT INTO car_status(plate_id,date,recent_status) VALUES (?,now(),'rented');`;
+    connection.query(sql, [body.plate_id],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            sql = `insert into payment(R_id,date,online) VALUES (?,now(),true);`;
+            connection.query(sql, [body.R_id],function (error, results, fields) {
+                    if (error) {res.sendStatus(400);
+                        return;}
+                    res.sendStatus(200);
                 });
         });
 });
