@@ -57,23 +57,29 @@ app.get("/get",(req,res)=>{
 
 app.get("/init",(req,res)=>{
     try {
-        connection.query("SELECT DISTINCT make FROM car",function (error, results, fields) {
+        sql = `(SELECT * FROM car_status AS A Natural join car
+        WHERE  is_reserved = "F" and (A.date, A.plate_id) IN (
+        SELECT MAX(B.date), B.plate_id FROM car_status AS B
+            GROUP BY B.plate_id
+        ) AND A.recent_status = "active") AS shown_cars`
+
+        connection.query("SELECT DISTINCT make FROM " + sql,function (error, results, fields) {
             dBData.makes = results;
             if (error) throw error;
         });
-        connection.query("SELECT DISTINCT color FROM car",function (error, results, fields) {
+        connection.query("SELECT DISTINCT color FROM " + sql,function (error, results, fields) {
             dBData.colors = results;
             if (error) throw error;
         });
         
-        connection.query("SELECT min(d_price),max(d_price),min(milage),max(milage),min(hp),max(hp),min(year),max(year) FROM car",function (error, results, fields) {
+        connection.query("SELECT min(d_price),max(d_price),min(milage),max(milage),min(hp),max(hp),min(year),max(year) FROM " + sql,function (error, results, fields) {
             dBData.price = [results[0]["min(d_price)"],results[0]["max(d_price)"]];
             dBData.milage = [results[0]["min(milage)"],results[0]["max(milage)"]];
             dBData.year = [results[0]["min(year)"],results[0]["max(year)"]];
             dBData.hp = [results[0]["min(hp)"],results[0]["max(hp)"]];
             if (error) throw error;
         });  
-        connection.query("SELECT * FROM car ORDER BY model",function (error, results, fields) {
+        connection.query("SELECT * FROM " + sql + " ORDER BY model",function (error, results, fields) {
             dBData.models = results;
             if (error) throw error;
         });
@@ -124,7 +130,8 @@ app.post("/login",(req,res)=>{
                 res.sendStatus(400);
                 return;
             }
-            res.sendStatus(200);
+            console.log(results[0].ssn);
+            res.status(200).send(JSON.stringify(results[0].ssn));
             return;
           });
     }
@@ -133,21 +140,12 @@ app.post("/login",(req,res)=>{
 // POST Register Route Setup
 app.post("/register",(req,res)=>{
     let body = req.body;
-    const data = {
-        ssn: body.ssn,
-        email: body.email,
-        password: body.password,
-        ph_num: body.ph_num,
-        name: body.name,
-        age: body.age,
-        gender: body.gender
-    }
 
     sql = `insert into customer values (?, ?, ?, ?, ?, ?, ?);`
-    connection.query(sql, [data.ssn, data.email, data.password, data.ph_num, data.name, data.age, data.gender],function (error, results, fields) {
+    connection.query(sql, [body.ssn, body.email, body.password, body.ph_num, body.name, body.age, body.gender],function (error, results, fields) {
             if (error) {res.sendStatus(400);
                 return;}
-            res.sendStatus(200);
+            res.status(200).send(JSON.stringify(ssn));
             return;
         });
     
@@ -156,27 +154,50 @@ app.post("/register",(req,res)=>{
 // POST User Init Setup
 app.post("/userinit",(req,res)=>{
     let body = req.body;
-    sql = `SELECT * FROM customer WHERE email = ? AND password = ?`
-    connection.query(sql, [body.username, body.password],function (error, results, fields) {
+    sql = `SELECT ssn, email, name, ph_num, age, gender, model, plate_id, s_date, d_date, cancelled, R_id FROM reserve
+        NATURAL JOIN customer
+        NATURAL JOIN car
+        WHERE ssn = ?;`;
+    connection.query(sql, [body.ssn],function (error, results, fields) {
         if (error) {res.sendStatus(400);
-            return;
+            return; 
         }
         if (results.length == 0){
             res.sendStatus(400);
             return;
         }
-        sql = `SELECT ssn, email, name, ph_num, age, gender, model, plate_id, s_date, d_date, cancelled, R_id FROM reserve
-        NATURAL JOIN customer
-        NATURAL JOIN car
-        WHERE ssn = ?;`;
-
-        connection.query(sql, [results[0][0]],function (error, results2, fields) {
-            if (error) {res.sendStatus(400);
-                return;
-            }
-            res.sendStatus(200);
-                // return OK response with user reservations
-            });
-        });
-    
+        res.status(200).send(results);
+            return;
+    });
 });
+
+app.post("/reservations",(req,res)=>{
+    let body = req.body;
+
+    sql = `SELECT * FROM reserve
+    NATURAL JOIN car
+    NATURAL JOIN customer
+    WHERE s_date >= ? AND s_date <= ?;`;
+    connection.query(sql, [body.start, body.end],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            console.log(results);
+            res.status(200).send(results);
+            return;
+        });
+});
+
+app.post("/car_reservations",(req,res)=>{
+    let body = req.body;
+    sql = `SELECT * FROM reserve
+    NATURAL JOIN car
+    WHERE plate_id = ? AND s_date >= ? AND s_date <= ?;`;
+    connection.query(sql, [body.plate_id, body.start, body.end],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            console.log(results);
+            res.status(200).send(results);
+            return;
+        });
+});
+
