@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>Payment</title>
+    <link rel="stylesheet" href="loginregister.css" />
+    <link rel="shortcut icon" href="#" />
+  </head>
+  <script>
+    const paying = async () => {
+      let data;
+      if (typeof sessionStorage != "undefined") {
+        if (sessionStorage.getItem("payment")) {
+          data = sessionStorage.getItem("payment");
+        }
+      }
+      const response = await fetch("http://localhost:8000/onlinepayment", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      try {
+        const res = await response;
+        if (!res.ok) {
+          return false;
+        }
+        alert("Payment successful, redirecting to homepage.");
+        window.location.href = "/FP";
+        return true;
+      } catch (error) {
+        console.log("Reserve error", error);
+      }
+    };
+    function pay() {
+      paying();
+    }
+  </script>
+
+  <body>
+    <div class="hero">
+      <div class="form-box">
+        <form
+          id="login"
+          action=""
+          method="post"
+          class="input-group"
+          onsubmit="pay();return false"
+        >
+          <input
+            type="text"
+            class="input-field"
+            id="visa"
+            placeholder="Enter Credit Card"
+            required
+          />
+          <div>
+            <br />
+            <button type="Submit" class="submit-btn">Pay now</button>
+            <br />
+            <button
+              type=""
+              class="submit-btn"
+              onclick="window.location.href='/FP'"
+            >
+              Pay later
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
