@@ -33,4 +33,4 @@ SELECT SUM(d_price * DATEDIFF(d_date,s_date)) FROM `payment`
 NATURAL JOIN `reserve`
 NATURAL JOIN `car`
 WHERE payment.date >= {start} AND payment.date <= {end}
-GROUP BY payment.R_id;
+GROUP BY YEAR(payment.date), MONTH(payment.date), DAY(payment.date);
