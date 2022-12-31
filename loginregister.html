@@ -1,201 +1,289 @@
 <html>
-    <head>
-        <title>Login/Register</title>
-        <link rel="stylesheet" href="loginregister.css">
-        <link rel="shortcut icon" href="#">
-    </head>
-    <script src="js/md5.min.js"></script>
-    <script>
-        
-        const sendLogin = async (admin,mail,pass) =>{
-            let data = {"admin":admin,"email":mail,"password":md5(pass)}; 
-            console.log(data);
-            const response = await fetch("http://localhost:8000/login", {
-                method: "POST", 
-                credentials: "same-origin", 
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data)
-            });
-            try {
-                const res = await response;
-                console.log(res);
-                if (!res.ok){
-                    return false;
-                }
-                return true;
-            }catch(error) {
-                console.log("Login error", error);
-            }
+  <head>
+    <title>Login/Register</title>
+    <link rel="stylesheet" href="loginregister.css" />
+    <link rel="shortcut icon" href="#" />
+  </head>
+  <script src="js/md5.min.js"></script>
+  <script>
+    const sendLogin = async (admin, mail, pass) => {
+      let data = { admin: admin, email: mail, password: md5(pass) };
+      const response = await fetch("http://localhost:8000/login", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      try {
+        const res = await response;
+        if (!res.ok) {
+          return false;
         }
-        
-        function loginForm() {
-            let errors = "";
-            let admin = document.forms["login"]["admin"].value;
-            let mail = document.forms["login"]["email"].value;
-            let pass = document.forms["login"]["pass"].value;
-            var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-            if (!mail.match(validRegex)) {
-                errors += "Invalid email address\n"
-            }
-
-            if (errors != ""){
-                alert(errors);
-                return false;
-            }
-            
-            if (admin === "admin"){
-                sendLogin(1,mail,pass).then((d)=>{
-                    if(d){
-                        window.location.href = "/FP/adminpage.html";
-                    } else {
-                        alert("Admin login failed!");
-                        return false;
-                    }
-                });
-            }
-            else{
-                sendLogin(0,mail,pass).then((d)=>{
-                    if(d){
-                        window.location.href = "/FP";
-                    } else {
-                        alert("User login failed!");
-                        return false;
-                    }
-                });
-            }
+        if (admin === 0) {
+          let resj = await res.json();
+          sessionStorage.setItem("mySsn", resj);
         }
-        
-        function registerForm() {
-            let errors = "";
-            let name = document.forms["register"]["name"].value;
-            let mail = document.forms["register"]["email"].value;
-            let pass1 = document.forms["register"]["pass1"].value;
-            let pass2 = document.forms["register"]["pass2"].value;
-            let ssn = document.forms["register"]["ssn"].value;
-            let ph_num = document.forms["register"]["ph_num"].value;
-            let age = document.forms["register"]["age"].value;
-            let gender = document.forms["register"]["gender"].value;
-            var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        return true;
+      } catch (error) {
+        console.log("Login error", error);
+      }
+    };
 
-            if (!mail.match(validRegex)) {
-                errors += "Invalid email address\n"
-            }
-            if (pass1.length < 8) {
-                errors+="Password must have at least 8 characters\n";
-            }
-            if(pass1!=pass2){
-                errors += "Password and confirm password not equal\n"
-            }
-            if (isNaN(age) || age < 18 || age > 80) {
-                errors += "Invalid age\n";
-            }
+    function loginForm() {
+      let errors = "";
+      let admin = document.forms["login"]["admin"].value;
+      let mail = document.forms["login"]["email"].value;
+      let pass = document.forms["login"]["pass"].value;
+      var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-            if (errors != ""){
-                alert(errors);
-                return false;
-            }
-            
-            sendRegister(ssn,mail,pass1,ph_num,name,age,gender).then((e)=>{
-                console.log(e);
-            })
-            
-            
+      if (!mail.match(validRegex)) {
+        errors += "Invalid email address\n";
+      }
+
+      if (errors != "") {
+        alert(errors);
+        return false;
+      }
+
+      if (admin === "admin") {
+        sendLogin(1, mail, pass).then((d) => {
+          if (d) {
+            window.location.href = "/FP/adminpage.html";
+          } else {
+            alert("Admin login failed!");
+            return false;
+          }
+        });
+      } else {
+        sendLogin(0, mail, pass).then((d) => {
+          if (d) {
+            window.location.href = "/FP";
+          } else {
+            alert("User login failed!");
+            return false;
+          }
+        });
+      }
+    }
+
+    function registerForm() {
+      let errors = "";
+      let name = document.forms["register"]["name"].value;
+      let mail = document.forms["register"]["email"].value;
+      let pass1 = document.forms["register"]["pass1"].value;
+      let pass2 = document.forms["register"]["pass2"].value;
+      let ssn = document.forms["register"]["ssn"].value;
+      let ph_num = document.forms["register"]["ph_num"].value;
+      let age = document.forms["register"]["age"].value;
+      let gender = document.forms["register"]["gender"].value;
+      var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+      if (!mail.match(validRegex)) {
+        errors += "Invalid email address\n";
+      }
+      if (pass1.length < 8) {
+        errors += "Password must have at least 8 characters\n";
+      }
+      if (pass1 != pass2) {
+        errors += "Password and confirm password not equal\n";
+      }
+      if (isNaN(age) || age < 18 || age > 80) {
+        errors += "Invalid age\n";
+      }
+
+      if (errors != "") {
+        alert(errors);
+        return false;
+      }
+
+      sendRegister(ssn, mail, pass1, ph_num, name, age, gender).then((e) => {
+        console.log(e);
+      });
+    }
+    const sendRegister = async (
+      ssn,
+      mail,
+      pass1,
+      ph_num,
+      name,
+      age,
+      gender
+    ) => {
+      let data = {
+        ssn: ssn,
+        email: mail,
+        password: md5(pass1),
+        ph_num: ph_num,
+        name: name,
+        age: age,
+        gender: gender,
+      };
+      const response = await fetch("http://localhost:8000/register", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      try {
+        const res = await response;
+        if (!res.ok) {
+          alert("User registration failed!");
+          return false;
         }
-        const sendRegister = async (ssn,mail,pass1,ph_num,name,age,gender) =>{
-            let data = {"ssn":ssn,"email":mail,"password":md5(pass1),"ph_num":ph_num,"name":name,"age":age,"gender":gender}; 
-             const response = await fetch("http://localhost:8000/register", {
-                 method: "POST", 
-                 credentials: "same-origin", 
-                 headers: {
-                     "Content-Type": "application/json",
-                 },
-                 body: JSON.stringify(data)
-             });
-             try {
-                 const res = await response;
-                 if (!res.ok){
-                    alert("User registration failed!");
-                    return false;
-                 }
-                 return true;
-                 // login?
-             }catch(error) {
-               console.log("Register error", error);
-             }
-        }
-        
-      </script>
-    
-    <body>
-        <div class = "hero">
-            <div class = "form-box">
-                <div class = "button-box">
-                    <div id = "btn"></div>
-                        <button type = "button" class="toggle-btn" onclick="login()">Log In</button>
-                        <button type = "button" class="toggle-btn" onclick="register()">Register</button>
+        return true;
+        // login?
+      } catch (error) {
+        console.log("Register error", error);
+      }
+    };
+  </script>
 
-                </div>
-            <form id ="login" action="" method="post" class="input-group" onsubmit = "loginForm();return false">
-                <input type="text" class="input-field" id="email" placeholder="Enter Email" required>
-                <input type="password" class="input-field" id="pass" placeholder="Enter Password" required> 
-                <fieldset>
-                    <div>
-                        <br>
-                        <input type="radio" id="admin" name="admin" value="admin">
-                        <label for="admin">Admin</label>
-                        <input type="radio" id="user" name="admin" value="user" checked="checked">
-                        <label for="user">User</label><br>
-                    </div>
-                </fieldset>
-                <div>  
-                    <br>  
-                    <button type="Submit" class="submit-btn">Log in</button>
-                </div>
-            </form>
-            <form id="register"  action="" method="post" class="input-group" onsubmit ="registerForm();return false">
-                <input type="text" class="input-field" id="name" placeholder="Enter name" required>
-                <input type="text" class="input-field" id="email" placeholder="Enter Email" required>
-                <input type="password" class="input-field" id="pass1" placeholder="Enter Password" required>
-                <input type="password" class="input-field" id="pass2" placeholder="Confirm Password" required>
-                <input type="text" class="input-field" id="ssn" placeholder="Enter SSN" required>
-                <input type="text" class="input-field" id="ph_num" placeholder="Enter phone number" required>
-                <input type="text" class="input-field" id="age" placeholder="Enter Age" required><br>
-                <div class="dropdown">
-                    <br>
-                    Gender: 
-                    <select name="gender" id="gender">
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
-                    </select>
-                    <div>
-                        <br>
-                <button type="Submit" class="submit-btn">Register</button>
-                    </div>
-                </div>
-            </form>
+  <body>
+    <div class="hero">
+      <div class="form-box">
+        <div class="button-box">
+          <div id="btn"></div>
+          <button type="button" class="toggle-btn" onclick="login()">
+            Log In
+          </button>
+          <button type="button" class="toggle-btn" onclick="register()">
+            Register
+          </button>
         </div>
+        <form
+          id="login"
+          action=""
+          method="post"
+          class="input-group"
+          onsubmit="loginForm();return false"
+        >
+          <input
+            type="text"
+            class="input-field"
+            id="email"
+            placeholder="Enter Email"
+            required
+          />
+          <input
+            type="password"
+            class="input-field"
+            id="pass"
+            placeholder="Enter Password"
+            required
+          />
+          <fieldset>
+            <div>
+              <br />
+              <input type="radio" id="admin" name="admin" value="admin" />
+              <label for="admin">Admin</label>
+              <input
+                type="radio"
+                id="user"
+                name="admin"
+                value="user"
+                checked="checked"
+              />
+              <label for="user">User</label><br />
+            </div>
+          </fieldset>
+          <div>
+            <br />
+            <button type="Submit" class="submit-btn">Log in</button>
+          </div>
+        </form>
+        <form
+          id="register"
+          action=""
+          method="post"
+          class="input-group"
+          onsubmit="registerForm();return false"
+        >
+          <input
+            type="text"
+            class="input-field"
+            id="name"
+            placeholder="Enter name"
+            required
+          />
+          <input
+            type="text"
+            class="input-field"
+            id="email"
+            placeholder="Enter Email"
+            required
+          />
+          <input
+            type="password"
+            class="input-field"
+            id="pass1"
+            placeholder="Enter Password"
+            required
+          />
+          <input
+            type="password"
+            class="input-field"
+            id="pass2"
+            placeholder="Confirm Password"
+            required
+          />
+          <input
+            type="text"
+            class="input-field"
+            id="ssn"
+            placeholder="Enter SSN"
+            required
+          />
+          <input
+            type="text"
+            class="input-field"
+            id="ph_num"
+            placeholder="Enter phone number"
+            required
+          />
+          <input
+            type="text"
+            class="input-field"
+            id="age"
+            placeholder="Enter Age"
+            required
+          /><br />
+          <div class="dropdown">
+            <br />
+            Gender:
+            <select name="gender" id="gender">
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+            <div>
+              <br />
+              <button type="Submit" class="submit-btn">Register</button>
+            </div>
+          </div>
+        </form>
+      </div>
 
-        <script>
-            var x = document.getElementById("login");
-            var y = document.getElementById("register");
-            var z = document.getElementById("btn");
+      <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
 
-            function register(){
-                
-                x.style.left="-400px";
-                y.style.left="50px";
-                z.style.left="110px";
-            }
+        function register() {
+          x.style.left = "-400px";
+          y.style.left = "50px";
+          z.style.left = "110px";
+        }
 
-            function login(){
-                x.style.left="50px";
-                y.style.left="450px";
-                z.style.left="0px";
-            }
-
-        </script>
-    </body>
+        function login() {
+          x.style.left = "50px";
+          y.style.left = "450px";
+          z.style.left = "0px";
+        }
+      </script>
+    </div>
+  </body>
 </html>
