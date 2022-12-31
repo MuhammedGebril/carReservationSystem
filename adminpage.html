@@ -1,74 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="adminstyle.css" />
-  <!-- Font Awesome Cdn Link -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-</head>
-<body class="body">
-  <header class="header">
-    <div class="logo">
-      <a href="#">Car Rental Agency</a>
-      <h2 style="text-align:right;">Welcome Admin</h2>
-    </div>
-  </header>
-  <div class="container">
-    <nav>
-      <div class="side_navbar">
-        <span> Queries</span>
-        <a href="#" onclick="showinput('inputs1')">Query 1 </a>
-        <a href="#" onclick="showinput('inputs2')">Query 2</a>
-        <a href="#" onclick="showinput('inputs3')">Query 3</a>
-        <a href="#" onclick="showinput('inputs4')">Query 4</a>
-        <a href="#" onclick="showinput('inputs5')">Query 5</a>
-        <a href="#" onclick="showinput('inputs6')">Query 6</a>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="adminstyle.css" />
+    <!-- Font Awesome Cdn Link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+  </head>
+  <body class="body">
+    <header class="header">
+      <div class="logo">
+        <a href="#">Car Rental Agency</a>
+        <h2 style="text-align: right">Welcome Admin</h2>
       </div>
-    </nav>
+    </header>
+    <div class="container">
+      <nav>
+        <div class="side_navbar">
+          <span> Queries</span>
+          <a href="#" onclick="showinput('inputs1')">Query 1 </a>
+          <a href="#" onclick="showinput('inputs2')">Query 2</a>
+          <a href="#" onclick="showinput('inputs3')">Query 3</a>
+          <a href="#" onclick="showinput('inputs4')">Query 4</a>
+          <a href="#" onclick="showinput('inputs5')">Query 5</a>
+          <a href="#" onclick="showinput('inputs6')">Query 6</a>
+        </div>
+      </nav>
 
-    <div class="main-body">
-      <div id="inputs1" class="show">
-        <input type="date" id="s_date">
-        <label for="s_date" style="background:#fff;">Start Date</label><br>
-        <input type="date" id="e_date">
-        <label for="e_date" style="background:#fff;">End Date</label><br>
-        <input type = "button" class="button-box" onclick = "query1()" value = "Display"> 
+      <div class="main-body">
+        <div id="inputs1" class="show">
+          <input type="date" id="s_date" />
+          <label for="s_date" style="background: #fff">Start Date</label><br />
+          <input type="date" id="e_date" />
+          <label for="e_date" style="background: #fff">End Date</label><br />
+          <input
+            type="button"
+            class="button-box"
+            onclick="query1()"
+            value="Display"
+          />
 
-        <table id="res_table1">
-          <thead>
+          <table id="inputs1">
+            <thead>
+              <tr>
+                <th>ssn</th>
+                <th>plate_id</th>
+                <th>s_date</th>
+                <th>d_date</th>
+                <th>R_id</th>
+                <th>cancelled</th>
+                <th>make</th>
+                <th>model</th>
+                <th>year</th>
+                <th>color</th>
+                <th>milage</th>
+                <th>d_price</th>
+                <th>hp</th>
+                <th>off_id</th>
+                <th>email</th>
+                <th>password</th>
+                <th>ph_num</th>
+                <th>name</th>
+                <th>age</th>
+                <th>gender</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div id="inputs2" class="hide">
+          <input
+            type="text"
+            id="plate_id"
+            placeholder=" Enter plate number"
+            required
+          /><br />
+          <input type="date" id="s_date" required />
+          <label for="s_date" style="background: #fff">Start Date</label><br />
+          <input type="date" id="e_date" required />
+          <label for="e_date" style="background: #fff">End Date</label><br />
+          <input
+            type="button"
+            class="button-box"
+            onclick="query2()"
+            value="Display"
+          />
+          <table id="res_table2">
+            <thead>
+              <tr>
+                <th>plate_id</th>
+                <th>s_date</th>
+                <th>d_date</th>
+                <th>ssn</th>
+                <th>R_id</th>
+                <th>cancelled</th>
+                <th>model</th>
+                <th>year</th>
+                <th>make</th>
+                <th>color</th>
+                <th>milage</th>
+                <th>d_price</th>
+                <th>hp</th>
+                <th>off_id</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div id="inputs3" class="hide">
+          <input type="date" id="date" required />
+          <label for="date" style="background: #fff">Specific Day</label><br />
+          <input
+            type="button"
+            class="button-box"
+            onclick="query3()"
+            value="Display"
+          />
+          <table id="res_table3">
+            <thead>
+              <tr>
+                <th>date</th>
+                <th>recent_status</th>
+                <th>plate_id</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div id="inputs4" class="hide">
+          <input type="text" id="ssn" placeholder=" Enter SSN" required />
+          <br />
+          <input
+            type="button"
+            class="button-box"
+            onclick="query4()"
+            value="Display"
+          />
+          <table id="res_table4">
+            <thead>
+              <tr>
+                <th>ssn</th>
+                <th>email</th>
+                <th>ph_num</th>
+                <th>name</th>
+                <th>age</th>
+                <th>gender</th>
+                <th>model</th>
+                <th>plate_id</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div id="inputs5" class="hide">
+          <input type="date" id="s_date" />
+          <label for="s_date" style="background: #fff">Start Date</label><br />
+          <input type="date" id="e_date" />
+          <label for="e_date" style="background: #fff">End Date</label><br />
+          <input
+            type="button"
+            class="button-box"
+            onclick="query5()"
+            value="Display"
+          />
+          <table id="res_table5">
+            <thead>
+              <tr>
+                <th>Sum</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <br />
+
+        <div id="inputs6" class="hide">
+          <input
+            type="text"
+            id="ssn"
+            placeholder=" Enter registration_id"
+            required
+          />
+          <br />
+          <input
+            type="button"
+            class="button-box"
+            onclick="query6()"
+            value="Display"
+          />
+          <input type="button" class="button-box2" onclick="" value="Confirm" />
+          <input type="button" class="button-box3" onclick="" value="Cancel" />
+          <table id="res_table6">
+            <thead>
+              <tr>
+                <th>plate_id</th>
+                <th>s_date</th>
+                <th>d_date</th>
+                <th>ssn</th>
+                <th>R_id</th>
+                <th>cancelled</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <br />
+
+        <script type="text/javascript" charset="utf-8">
+          var reset1 = `<thead>
             <tr>
+              <th>ssn</th>
               <th>plate_id</th>
               <th>s_date</th>
               <th>d_date</th>
-              <th>ssn</th>
               <th>R_id</th>
               <th>cancelled</th>
+              <th>make</th>
               <th>model</th>
               <th>year</th>
-              <th>make</th>
               <th>color</th>
               <th>milage</th>
               <th>d_price</th>
               <th>hp</th>
               <th>off_id</th>
               <th>email</th>
+              <th>password</th>
               <th>ph_num</th>
               <th>name</th>
               <th>age</th>
               <th>gender</th>
             </tr>
-          </thead>
-        </table>
-      </div>
-      <div id="inputs2" class="hide">
-            <input type="text" id="plate_id" placeholder=" Enter plate number" required><br>
-            <input type="date" id="s_date" required>
-            <label for="s_date" style="background:#fff;">Start Date</label><br>
-            <input type="date" id="e_date" required>
-            <label for="e_date" style="background:#fff;">End Date</label><br>
-            <input type = "button" class="button-box" onclick = "query2()" value = "Display"> 
-            <table id="res_table2">
+          </thead>`;
+          var reset2 = `
               <thead>
                 <tr>
                   <th>plate_id</th>
@@ -86,184 +246,121 @@
                   <th>hp</th>
                   <th>off_id</th>
                 </tr>
-              </thead>
-            </table>
-      </div>
-      <div id="inputs3" class="hide">
-        <input type="date" id="date" required>
-        <label for="date" style="background:#fff;">Specific Day</label><br>
-        <input type = "button" class="button-box" onclick = "query3()" value = "Display"> 
-        <table id="res_table3">
-          <thead>
-            <tr>
-              <th>date</th>
-              <th>recent_status</th>
-              <th>plate_id</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-      <div id="inputs4" class="hide">
-            <input type="text" id="ssn" placeholder=" Enter SSN" required>
-            <br>
-            <input type = "button" class="button-box" onclick = "query4()" value = "Display"> 
-            <table id="res_table4">
-              <thead>
-                <tr>
-                  <th>ssn</th>
-                  <th>email</th>
-                  <th>ph_num</th>
-                  <th>name</th>
-                  <th>age</th>
-                  <th>gender</th>
-                  <th>model</th>
-                  <th>plate_id</th>
-                </tr>
-              </thead>
-            </table>
-      </div>
-    <div id="inputs5" class="hide">
-      <input type="date" id="s_date">
-      <label for="s_date" style="background:#fff;">Start Date</label><br>
-      <input type="date" id="e_date">
-      <label for="e_date" style="background:#fff;">End Date</label><br>
-         <input type = "button" class="button-box" onclick = "query5()" value = "Display"> 
-         <table id="res_table5">
-          <thead>
-            <tr>
-              <th>Sum</th>
-            </tr>
-          </thead>
-        </table>
-     </div>
-     <br>
-      <div class="history_lists">
-        <div class="list1">
-          <div class="row">
-            <h4>Results</h4>
-          </div>
-        </div>
-    </div>
-
-    <div id="inputs6" class="hide">
-        <input type="text" id="ssn" placeholder=" Enter registration_id" required>
-        <br>
-         <input type = "button" class="button-box" onclick = "query6()" value = "Display">
-         <input type = "button" class="button-box2" onclick = "" value = "Confirm">
-         <input type = "button" class="button-box3" onclick = "" value = "Cancel"> 
-         <table id="res_table6">
-          <thead>
-            <tr>
-              <th>plate_id</th>
-              <th>s_date</th>
-              <th>d_date</th>
-              <th>ssn</th>
-              <th>R_id</th>
-              <th>cancelled</th>
-            </tr>
-          </thead>
-        </table>
-     </div>
-     <br>
-      <div class="history_lists">
-        <div class="list1">
-          <div class="row">
-            <h4>Results</h4>
-          </div>
-        </div>
-    </div>
-
-    <script type="text/javascript" charset="utf-8">
-        function query1(){
-        fetch('https://jsonplaceholder.typicode.com/todos')
-            .then(function (response) {
-                return response.json();
-            }).then(function (apiJsonData) {
-                console.log(apiJsonData);
-                renderDataInTheTable(apiJsonData,"res_table1");
+              </thead>`;
+          function query1() {
+            document.getElementById("inputs1").innerHTML = reset1;
+            let s_date = document.getElementById("s_date").value;
+            let e_date = document.getElementById("e_date").value;
+            let data = { start: s_date, end: e_date };
+            fetch("http://localhost:8000/reservations", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
             })
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (apiJsonData) {
+                console.log(apiJsonData);
+                renderDataInTheTable(apiJsonData, "inputs1");
+              });
           }
-          function query2(){
-            fetch('https://jsonplaceholder.typicode.com/todos')
-                .then(function (response) {
-                    return response.json();
-                }).then(function (apiJsonData) {
-                    console.log(apiJsonData);
-                    renderDataInTheTable(apiJsonData,"res_table2");
-                })
-          }
-          function query3(){
-            fetch('https://jsonplaceholder.typicode.com/todos')
-                .then(function (response) {
-                    return response.json();
-                }).then(function (apiJsonData) {
-                    console.log(apiJsonData);
-                    renderDataInTheTable(apiJsonData,"res_table3");
-                })
-          }
-          function query4(){
-            fetch('https://jsonplaceholder.typicode.com/todos')
-                .then(function (response) {
-                    return response.json();
-                }).then(function (apiJsonData) {
-                    console.log(apiJsonData);
-                    renderDataInTheTable(apiJsonData,"res_table4");
-                })
-          }
-          function query5(){
-            fetch('https://jsonplaceholder.typicode.com/todos')
-                .then(function (response) {
-                    return response.json();
-                }).then(function (apiJsonData) {
-                    console.log(apiJsonData);
-                    renderDataInTheTable(apiJsonData,"res_table5");
-                })
-          }
-          function query6(){
-            fetch('https://jsonplaceholder.typicode.com/todos')
-                .then(function (response) {
-                    return response.json();
-                }).then(function (apiJsonData) {
-                    console.log(apiJsonData);
-                    renderDataInTheTable(apiJsonData,"res_table6");
-                })
-          }
-        function renderDataInTheTable(todos,table_id) {
-            const mytable = document.getElementById(table_id);
-            todos.forEach(todo => {
-                let newRow = document.createElement("tr");
-                Object.values(todo).forEach((value) => {
-                    let cell = document.createElement("td");
-                    cell.innerText = value;
-                    newRow.appendChild(cell);
-                })
-                mytable.appendChild(newRow);
+          function query2() {
+            document.getElementById("inputs2").innerHTML = reset2;
+            let s_date = document.getElementById("s_date").value;
+            let e_date = document.getElementById("e_date").value;
+            let plate_id = document.getElementById("plate_id").value;
+            let data = { plate_id: plate_id, start: s_date, end: e_date };
+            fetch("http://localhost:8000/car_reservations", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            }).then(function (apiJsonData) {
+              console.log(apiJsonData);
+              renderDataInTheTable(apiJsonData, "inputs2");
             });
-        }
-        function showinput(id){
-            document.querySelector("div.show").className="hide"
-            if(id === "inputs1"){
-                document.getElementById(id).className="show"
-            }
-            if(id === "inputs2"){
-                document.getElementById(id).className="show"
-            }
-            if(id === "inputs3"){
-                document.getElementById(id).className="show"
-            }
-            if(id === "inputs4"){
-                document.getElementById(id).className="show"
-            }
-            if(id === "inputs5"){
-              document.getElementById(id).className="show"
           }
-          if(id === "inputs6"){
-            document.getElementById(id).className="show"
-        }
-
-        }
-        
-
-    </script>
-    </body>
+          function query3() {
+            fetch("https://jsonplaceholder.typicode.com/todos")
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (apiJsonData) {
+                console.log(apiJsonData);
+                renderDataInTheTable(apiJsonData, "inputs3");
+              });
+          }
+          function query4() {
+            fetch("https://jsonplaceholder.typicode.com/todos")
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (apiJsonData) {
+                console.log(apiJsonData);
+                renderDataInTheTable(apiJsonData, "inputs4");
+              });
+          }
+          function query5() {
+            fetch("https://jsonplaceholder.typicode.com/todos")
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (apiJsonData) {
+                console.log(apiJsonData);
+                renderDataInTheTable(apiJsonData, "inputs5");
+              });
+          }
+          function query6() {
+            fetch("https://jsonplaceholder.typicode.com/todos")
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (apiJsonData) {
+                console.log(apiJsonData);
+                renderDataInTheTable(apiJsonData, "inputs6");
+              });
+          }
+          function renderDataInTheTable(todos, table_id) {
+            const mytable = document.getElementById(table_id);
+            todos.forEach((todo) => {
+              let newRow = document.createElement("tr");
+              Object.values(todo).forEach((value) => {
+                let cell = document.createElement("td");
+                cell.innerText = value;
+                newRow.appendChild(cell);
+              });
+              mytable.appendChild(newRow);
+            });
+          }
+          function showinput(id) {
+            document.querySelector("div.show").className = "hide";
+            if (id === "inputs1") {
+              document.getElementById(id).className = "show";
+            }
+            if (id === "inputs2") {
+              document.getElementById(id).className = "show";
+            }
+            if (id === "inputs3") {
+              document.getElementById(id).className = "show";
+            }
+            if (id === "inputs4") {
+              document.getElementById(id).className = "show";
+            }
+            if (id === "inputs5") {
+              document.getElementById(id).className = "show";
+            }
+            if (id === "inputs6") {
+              document.getElementById(id).className = "show";
+            }
+          }
+        </script>
+      </div>
+    </div>
+  </body>
 </html>
