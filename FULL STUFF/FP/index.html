@@ -23,13 +23,22 @@
       <div>
         <h1>Car Rental Agency</h1>
       </div>
-      <button
-        class="button-box"
-        id="userLog"
-        onclick="window.location.href='/FP/loginregister.html'"
-      >
-        Login or Register
-      </button>
+      <div class="buttons">
+        <button
+          class="hidden"
+          id="signout"
+          onclick="sessionStorage.clear();window.location.href='/FP'"
+        >
+          Signout
+        </button>
+        <button
+          class="button-box"
+          id="userLog"
+          onclick="window.location.href='/FP/loginregister.html'"
+        >
+          Login or Register
+        </button>
+      </div>
     </header>
     <main>
       <div id="search">
