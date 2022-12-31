@@ -154,7 +154,7 @@ app.post("/register",(req,res)=>{
 // POST User Init Setup
 app.post("/userinit",(req,res)=>{
     let body = req.body;
-    sql = `SELECT ssn, email, name, ph_num, age, gender, model, plate_id, s_date, d_date, cancelled, R_id FROM reserve
+    sql = `SELECT * FROM reserve
         NATURAL JOIN customer
         NATURAL JOIN car
         WHERE ssn = ?;`;
@@ -166,9 +166,31 @@ app.post("/userinit",(req,res)=>{
             res.sendStatus(400);
             return;
         }
+        console.log(results);
         res.status(200).send(results);
             return;
     });
+});
+
+app.post("/cancelreservation",(req,res)=>{
+    let body = req.body;
+    console.log(body);
+    sql = `UPDATE reserve
+    SET cancelled=1
+    WHERE R_id = ?`;
+    connection.query(sql, [body.r_id],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            sql = `UPDATE car
+            SET is_reserved=0
+            WHERE plate_id=?`;
+            connection.query(sql, [body.plate_id],function (error, results, fields) {
+                if (error) {res.sendStatus(400);
+                    return;}
+                res.sendStatus(200);
+                return;
+            });
+        });
 });
 
 app.post("/reservations",(req,res)=>{
@@ -200,6 +222,7 @@ app.post("/car_reservations",(req,res)=>{
             return;
         });
 });
+
 app.post("/car_status",(req,res)=>{
     let body = req.body;
     sql = `SELECT A.date, A.recent_status, A.plate_id FROM car_status AS A
@@ -244,4 +267,3 @@ app.post("/daily_payment",(req,res)=>{
             return;
         });
 });
-
