@@ -49,6 +49,7 @@ const userInit = async(s) =>{
         if (!res.ok){
             return false;
         }
+        console.log(res);
         user_info = await res.json();
         return true;
     }catch(error) {
@@ -80,12 +81,14 @@ const init = async () =>{
     }
     if (ssn != -1){
         await userInit(ssn);
+        sessionStorage.setItem("reservations",JSON.stringify(user_info));
     }
     console.log(user_info);
     const request = await fetch("http://localhost:8000/init");
+    let db;
     try {
         // Transform into JSON
-        const db = await request.json();
+        db = await request.json();
         data = db.models;
         // Write updated data to DOM elements
         addMakes(db.makes);
@@ -96,6 +99,7 @@ const init = async () =>{
         // appropriately handle the error
         console.log("error", error);
     }
+
     let year = document.getElementById('yearSlider');
     let milage = document.getElementById('milageSlider');
     let hp = document.getElementById('hpSlider');
