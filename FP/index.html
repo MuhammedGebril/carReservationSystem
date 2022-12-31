@@ -23,7 +23,8 @@
       <div>
         <h1>Car Rental Agency</h1>
       </div>
-      <button class="button-box"
+      <button
+        class="button-box"
         id="userLog"
         onclick="window.location.href='/FP/loginregister.html'"
       >
@@ -32,13 +33,18 @@
     </header>
     <main>
       <div id="search">
-        <button class="button-box" onclick="window.location.href='/FP/reservations.html'">
+        <button
+          class="button-box"
+          onclick="window.location.href='/FP/reservations.html'"
+        >
           Reservations
         </button>
         <h3>Advanced Search</h3>
         <button class="button-box" onclick="filter()">Filter</button>
-        <br>
-        <button class="button-box" onclick="resetFilter()">Reset Filters</button>
+        <br />
+        <button class="button-box" onclick="resetFilter()">
+          Reset Filters
+        </button>
         <ul id="searchPanel">
           <ul id="makes">
             <h4>Makes:</h4>
@@ -106,7 +112,8 @@
       <div id="items" class="hero"></div>
       <div id="panel">
         <h3>DETAILS</h3>
-        <ul id="detailsPanel">
+        <ul id="detailsPanel" car="-1">
+          <li id="c_plate_id">Plate ID</li>
           <li id="c_make">Make</li>
           <li id="c_model">Model</li>
           <li id="c_year">Year</li>
@@ -127,7 +134,9 @@
             </label>
             <br />
             <li id="totp">total payment:</li>
-            <button class="button-box" id="reserve" onclick="reserve();">Reserve</button>
+            <button class="button-box" id="reserve" onclick="reserve();">
+              Reserve
+            </button>
           </div>
         </ul>
       </div>
