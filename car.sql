@@ -139,7 +139,6 @@ INSERT INTO car(plate_id,make,model,year,color,milage,d_price,hp,off_id) VALUES 
 INSERT INTO car(plate_id,make,model,year,color,milage,d_price,hp,off_id) VALUES ('PX-35291','Honda','clarity',2005,'Fuscia',7186,8409.62,313,1);
 INSERT INTO car(plate_id,make,model,year,color,milage,d_price,hp,off_id) VALUES ('XF-25904','Honda','Civic',2003,'Orange',80768,6161.42,254,1);
 INSERT INTO car(plate_id,make,model,year,color,milage,d_price,hp,off_id) VALUES ('NH-21451','Chevrolet','TrailBlazer',2008,'Violet',102699,2183.89,194,1);
-INSERT INTO car(plate_id,make,model,year,color,milage,d_price,hp,off_id) VALUES ('KG-06530','Aston-Martin','DB 11',2008,'Red',9580,616.49,316,1);
 INSERT INTO car(plate_id,make,model,year,color,milage,d_price,hp,off_id) VALUES ('MZ-60506','Jaguar','f-pace',1995,'Orange',66216,7439.95,383,1);
 INSERT INTO car(plate_id,make,model,year,color,milage,d_price,hp,off_id) VALUES ('ZE-97176','Lamborghini','aventador',2008,'Mauv',123533,8578.43,326,1);
 INSERT INTO car(plate_id,make,model,year,color,milage,d_price,hp,off_id) VALUES ('OC-25263','Hyundai','Sonata',2003,'Puce',104532,3919.38,394,1);
