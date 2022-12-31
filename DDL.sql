@@ -24,6 +24,8 @@ ALTER TABLE
     `reserve` ADD PRIMARY KEY `reserve_plate_id_s_date_ssn_primary`(`plate_id`,`s_date`,`ssn`);
 ALTER TABLE
     `reserve` ADD UNIQUE `reserve_r_id_unique`(`R_id`);
+    ALTER TABLE 
+    `reserve` MODIFY R_id INT UNSIGNED NOT NULL AUTO_INCREMENT;
 CREATE TABLE `office`(
     `off_id` INT UNSIGNED NOT NULL,
     `ph_num` VARCHAR(255) NOT NULL,
