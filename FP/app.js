@@ -190,6 +190,8 @@ const init = async () =>{
 }
 
 function printData(){
+    document.getElementById("detailsPanel").car=this.id;
+    document.getElementById("c_plate_id").textContent ="plate id: "+data[this.id].plate_id;
     document.getElementById("c_make").textContent ="make: "+data[this.id].make;
     document.getElementById("c_model").textContent = "model: "+data[this.id].model;
     document.getElementById("c_year").textContent = "year: "+data[this.id].year;
@@ -364,6 +366,45 @@ function addColors(colors) {
         frag.appendChild(item);
     }
     document.getElementById("colors").appendChild(frag);
+}
+
+const reserveCar = async(s, d) =>{
+    let p_id = data[document.getElementById("detailsPanel").car].plate_id;
+    let data = {s_date: s, d_date: d, my_ssn:ssn, plate_id: p_id}; 
+    const response = await fetch("http://localhost:8000/doreserve", {
+        method: "POST", 
+        credentials: "same-origin", 
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    try {
+        const res = await response;
+        if (!res.ok){
+            return false;
+        }
+        let resj = await res.json();
+        let pay = {plate_id: p_id, R_id: resj.R_id}
+        sessionStorage.setItem("payment",JSON.stringify(pay));
+        window.location.href='payment.html';
+        return true;
+    }catch(error) {
+        console.log("Reserve error", error);
+    }
+}
+
+function reserve(){
+    let s_date = document.getElementById("s_date").value;
+    let d_date = document.getElementById("d_date").value;
+    let s_date_js = new Date(s_date);
+    let now_date = new Date();
+    if (d_date < s_date || s_date_js < now_date){
+        alert("Invalid date range!");
+        return false;
+    }
+
+
 }
 
 document.addEventListener("DOMContentLoaded",init);
