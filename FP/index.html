@@ -1,98 +1,134 @@
 <!DOCTYPE >
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Car Agency</title>
-  <!-- Load Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap" rel="stylesheet">  <!-- Load Styles -->
-  <link href="styles.css" rel="stylesheet">
-  <link href="nouislider.css" rel="stylesheet">
-  <link rel="shortcut icon" href="#">
-  <script src="nouislider.js"></script>
-</head>
-<body>
-  <!-- HTML Follows BEM naming conventions 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Car Agency</title>
+    <!-- Load Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Load Styles -->
+    <link href="styles.css" rel="stylesheet" />
+    <link href="nouislider.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="#" />
+    <script src="nouislider.js"></script>
+  </head>
+  <body>
+    <!-- HTML Follows BEM naming conventions 
   IDs are only used for sections to connect menu achors to sections -->
-  <header class="page__header">
-    <div>
-      <h1>Car rental agency</h1>
-    </div>
-    <button id="userLog">login or register</button>
-  </header>
-  <main>
-  <div id="search">
-    <h3>advanced search</h3>
-    <button onclick="filter()">Filter</button>
-    <button onclick="resetFilter()">Reset Filters</button>
-    <ul id="searchPanel">
-      <ul id="makes"><h4>makes:</h4></ul>
-      <ul id="models"><h4>models:</h4></ul>
-      <li><h4>year:</h4>
-        <div class="inputBox">
-          <input type="number" slider="0" onchange="updateS()" id="yearL">
-          <input type="number" slider="0" onchange="updateS()" id="yearU">
-        </div>
-        <div slider="0" id="yearSlider"></div>
-      </li>
-      <ul id="colors"><h4>colors:</h4></ul>
-      <li><h4>milage:</h4>
-        <div class="inputBox">
-          <input type="number" slider="1" onchange="updateS()" id="milageL">
-          <input type="number" slider="1" onchange="updateS()" id="milageU">
-        </div>
-        <div slider="1" id="milageSlider"></div>
-      </li>
-      <li><h4>horse power:</h4>
-        <div class="inputBox">
-          <input type="number" slider="2" onchange="updateS()" id="hpL">
-          <input type="number" slider="2" onchange="updateS()" id="hpU">
-        </div>
-        <div slider="2" id="hpSlider"></div>
-      </li>
-      <li><h4>price:</h4>
-        <div class="inputBox">
-          <input type="number" slider="3" onchange="updateS()" id="priceL">
-          <input type="number" slider="3" onchange="updateS()" id="priceU">
-        </div>
-        <div slider="3" id="priceSlider"></div>
-      </li>
-    </ul>
-  </div>
-  <div id="items">
-  </div>
-  <div id="panel">
-    <h3>details</h3>
-    <ul id="detailsPanel">
-      <li id="c_make">make</li>
-      <li id="c_model">model</li>
-      <li id="c_year">year</li>
-      <li id="c_color">color</li>
-      <li id="c_milage">milage</li>
-      <li id="c_hp">horse power</li>
-      <li id="c_price">price</li>
-      <div id="reserveSection" class="hidden">
-        <li><h4>Reservation:</h4></li>
-        <label>
-          Start Date:
-          <input type="Date" id="s_date">
-        </label>
-        <br>
-        <label>
-          End Date:
-          <input type="Date" id="d_date">
-        </label>
-        <br>
-        <li id="totp">total payment: </li>
-        <button id="reserve">Reserve</button>
+    <header class="page__header">
+      <div>
+        <h1>Car rental agency</h1>
       </div>
-    </ul>
-  </div>
-  </main>
-  <footer class="page__footer">
-    
-  </footer>
-  <script src="app.js"></script>
-</body>
+      <button
+        id="userLog"
+        onclick="window.location.href='/FP/loginregister.html'"
+      >
+        login or register
+      </button>
+    </header>
+    <main>
+      <div id="search">
+        <h3>advanced search</h3>
+        <button onclick="filter()">Filter</button>
+        <button onclick="resetFilter()">Reset Filters</button>
+        <ul id="searchPanel">
+          <ul id="makes">
+            <h4>makes:</h4>
+          </ul>
+          <ul id="models">
+            <h4>models:</h4>
+          </ul>
+          <li>
+            <h4>year:</h4>
+            <div class="inputBox">
+              <input type="number" slider="0" onchange="updateS()" id="yearL" />
+              <input type="number" slider="0" onchange="updateS()" id="yearU" />
+            </div>
+            <div slider="0" id="yearSlider"></div>
+          </li>
+          <ul id="colors">
+            <h4>colors:</h4>
+          </ul>
+          <li>
+            <h4>milage:</h4>
+            <div class="inputBox">
+              <input
+                type="number"
+                slider="1"
+                onchange="updateS()"
+                id="milageL"
+              />
+              <input
+                type="number"
+                slider="1"
+                onchange="updateS()"
+                id="milageU"
+              />
+            </div>
+            <div slider="1" id="milageSlider"></div>
+          </li>
+          <li>
+            <h4>horse power:</h4>
+            <div class="inputBox">
+              <input type="number" slider="2" onchange="updateS()" id="hpL" />
+              <input type="number" slider="2" onchange="updateS()" id="hpU" />
+            </div>
+            <div slider="2" id="hpSlider"></div>
+          </li>
+          <li>
+            <h4>price:</h4>
+            <div class="inputBox">
+              <input
+                type="number"
+                slider="3"
+                onchange="updateS()"
+                id="priceL"
+              />
+              <input
+                type="number"
+                slider="3"
+                onchange="updateS()"
+                id="priceU"
+              />
+            </div>
+            <div slider="3" id="priceSlider"></div>
+          </li>
+        </ul>
+      </div>
+      <div id="items"></div>
+      <div id="panel">
+        <h3>details</h3>
+        <ul id="detailsPanel">
+          <li id="c_make">make</li>
+          <li id="c_model">model</li>
+          <li id="c_year">year</li>
+          <li id="c_color">color</li>
+          <li id="c_milage">milage</li>
+          <li id="c_hp">horse power</li>
+          <li id="c_price">price</li>
+          <div id="reserveSection" class="hidden">
+            <li><h4>Reservation:</h4></li>
+            <label>
+              Start Date:
+              <input type="Date" id="s_date" />
+            </label>
+            <br />
+            <label>
+              End Date:
+              <input type="Date" id="d_date" />
+            </label>
+            <br />
+            <li id="totp">total payment:</li>
+            <button id="reserve">Reserve</button>
+          </div>
+        </ul>
+      </div>
+    </main>
+    <footer class="page__footer"></footer>
+    <script src="app.js"></script>
+  </body>
 </html>
