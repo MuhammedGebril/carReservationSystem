@@ -1,30 +1,36 @@
 body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0;
 }
 
 .hero{
-   background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(background.jpg);
+   background-image: url(background5.jpg);
+   border-radius: 6px;
 }
 
 .page__header{
     display:flex;
     flex-direction: row;
     width: 100%;
-    height: 7rem;
+    height: 6rem;
     justify-content: space-between;
     align-items: center;
     position:fixed;
     top: 0;
     left: 0;
     z-index: 5;
-    background-image: linear-gradient(rgb(209, 208, 208),rgb(255, 248, 248));
+    background-image: linear-gradient(rgb(206, 203, 203),rgb(14, 14, 14));
+    border-color: black;
+    border-width: 1px;
 }
 
 .button-box{
     width: 220px;
-    box-shadow: 0 0 20px 9px #08b8e41f;
     border-radius: 30px;
     opacity: 0.9;
+    padding-right: 10px;
+    margin-top: 0.5rem;
+    margin-left: 2rem;
 }
 
 button {
@@ -33,11 +39,16 @@ button {
     align-content: center;
     background-image: linear-gradient(rgb(255, 248, 248),rgb(209, 208, 208));
     border-width: 0;
+    width: 220px;
+    border-radius: 30px;
+    opacity: 0.9;
+    padding-left: 10px;
 }
 
 #userLog {
     height: 4rem;
     width: 8rem;
+    margin-right: 12px;
 }
 
 button:hover {
@@ -50,10 +61,12 @@ main{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 7rem;
+    margin-top: 6rem;
     left:0px;
     right:0px;
     height: 100%;
+    background-image: url(background5.jpg);
+
 }
 
 #search {
@@ -61,15 +74,21 @@ main{
     font-family: sans-serif;
     height: 100%;
     width: 20%;
-    background-image: linear-gradient(to bottom right,rgb(105, 105, 105),rgb(0, 0, 0));
+    background-image: linear-gradient(to bottom right,rgb(53, 52, 52),rgb(0, 0, 0));
+    border-radius: 20px;
+    margin-top: 0.5rem;
+    border: none;
 }
 
 #panel {
     color: #fff;
     font-family: sans-serif;
     width: 20%;
-    background-image: linear-gradient(to bottom left,rgb(0, 0, 0),rgb(105, 105, 105));
+    background-image: linear-gradient(to bottom left,rgb(0, 0, 0),rgb(52, 52, 52));
     height: 100%;
+    border-radius: 20px;
+    margin-top: 0.5rem;
+
 }
 
 ul{
@@ -85,6 +104,7 @@ ul{
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
+    
 }
 
 #items.reserve {
@@ -92,7 +112,9 @@ ul{
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
-    background-image: linear-gradient(white,rgb(28, 82, 184));
+    background-image:url(background5.jpg);
+    border-radius: 6px;
+    background-color: black;
 }
 
 Img {
@@ -116,4 +138,13 @@ li{
 .hidden {
     display: none;
     visibility: hidden;
+}
+h3{
+    padding-left: 12px;
+}
+#detailspanel{
+    padding-left: 6px;
+}
+#searchpanel{
+    padding-left: 4px;
 }
