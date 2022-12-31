@@ -183,11 +183,18 @@ app.post("/doreserve",(req,res)=>{
             return;}
             sql = `INSERT INTO reserve 
             VALUES (?, ?, ?, ?, NULL, '0');`;
-            connection.query(sql, [body.plate_id, body.s_date, body.d_date, body.ssn],function (error, results, fields) {
+            connection.query(sql, [body.plate_id, body.s_date, body.d_date, body.my_ssn],function (error, results, fields) {
                 if (error) {res.sendStatus(400);
                     return;}
-                res.sendStatus(200);
-                return;
+                sql = `SELECT MAX(R_id) FROM reserve
+                WHERE ssn = ?
+                GROUP BY ssn`;
+                connection.query(sql, [body.my_ssn],function (error, results, fields) {
+                    if (error) {res.sendStatus(400);
+                        return;}
+                        res.status(200).send(results);
+                        return;
+                });
             });
     });   
 });
