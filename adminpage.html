@@ -43,7 +43,7 @@
             value="Display"
           />
 
-          <table id="inputs1">
+          <table id="res_table1">
             <thead>
               <tr>
                 <th>ssn</th>
@@ -73,13 +73,13 @@
         <div id="inputs2" class="hide">
           <input
             type="text"
-            id="plate_id"
+            id="plate_id2"
             placeholder=" Enter plate number"
             required
           /><br />
-          <input type="date" id="s_date" required />
+          <input type="date" id="s_date2" required />
           <label for="s_date" style="background: #fff">Start Date</label><br />
-          <input type="date" id="e_date" required />
+          <input type="date" id="e_date2" required />
           <label for="e_date" style="background: #fff">End Date</label><br />
           <input
             type="button"
@@ -104,6 +104,7 @@
                 <th>d_price</th>
                 <th>hp</th>
                 <th>off_id</th>
+                <th>is_reserved</th>
               </tr>
             </thead>
           </table>
@@ -228,8 +229,7 @@
               <th>gender</th>
             </tr>
           </thead>`;
-          var reset2 = `
-              <thead>
+          var reset2 = `<thead>
                 <tr>
                   <th>plate_id</th>
                   <th>s_date</th>
@@ -245,10 +245,11 @@
                   <th>d_price</th>
                   <th>hp</th>
                   <th>off_id</th>
+                  <th>is_reserved</th>
                 </tr>
               </thead>`;
           function query1() {
-            document.getElementById("inputs1").innerHTML = reset1;
+            document.getElementById("res_table1").innerHTML = reset1;
             let s_date = document.getElementById("s_date").value;
             let e_date = document.getElementById("e_date").value;
             let data = { start: s_date, end: e_date };
@@ -265,15 +266,15 @@
               })
               .then(function (apiJsonData) {
                 console.log(apiJsonData);
-                renderDataInTheTable(apiJsonData, "inputs1");
+                renderDataInTheTable(apiJsonData, "res_table1");
               });
           }
           function query2() {
-            document.getElementById("inputs2").innerHTML = reset2;
-            let s_date = document.getElementById("s_date").value;
-            let e_date = document.getElementById("e_date").value;
-            let plate_id = document.getElementById("plate_id").value;
-            let data = { plate_id: plate_id, start: s_date, end: e_date };
+            document.getElementById("res_table2").innerHTML = reset2;
+            let s_date = document.getElementById("s_date2").value;
+            let e_date = document.getElementById("e_date2").value;
+            let p_id = document.getElementById("plate_id2").value;
+            let data = { plate_id: p_id, start: s_date, end: e_date };
             fetch("http://localhost:8000/car_reservations", {
               method: "POST",
               credentials: "same-origin",
@@ -281,10 +282,14 @@
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(data),
-            }).then(function (apiJsonData) {
-              console.log(apiJsonData);
-              renderDataInTheTable(apiJsonData, "inputs2");
-            });
+            })
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (apiJsonData) {
+                console.log(apiJsonData);
+                renderDataInTheTable(apiJsonData, "res_table2");
+              });
           }
           function query3() {
             fetch("https://jsonplaceholder.typicode.com/todos")
@@ -293,7 +298,7 @@
               })
               .then(function (apiJsonData) {
                 console.log(apiJsonData);
-                renderDataInTheTable(apiJsonData, "inputs3");
+                renderDataInTheTable(apiJsonData, "res_table3");
               });
           }
           function query4() {
@@ -303,7 +308,7 @@
               })
               .then(function (apiJsonData) {
                 console.log(apiJsonData);
-                renderDataInTheTable(apiJsonData, "inputs4");
+                renderDataInTheTable(apiJsonData, "res_table4");
               });
           }
           function query5() {
@@ -313,7 +318,7 @@
               })
               .then(function (apiJsonData) {
                 console.log(apiJsonData);
-                renderDataInTheTable(apiJsonData, "inputs5");
+                renderDataInTheTable(apiJsonData, "res_table5");
               });
           }
           function query6() {
@@ -323,7 +328,7 @@
               })
               .then(function (apiJsonData) {
                 console.log(apiJsonData);
-                renderDataInTheTable(apiJsonData, "inputs6");
+                renderDataInTheTable(apiJsonData, "res_table6");
               });
           }
           function renderDataInTheTable(todos, table_id) {
