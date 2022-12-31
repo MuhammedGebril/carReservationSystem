@@ -85,6 +85,7 @@ const init = async () =>{
         document.getElementById("userLog").textContent="Welcome!";
         document.getElementById("signout").className="";
         sessionStorage.setItem("reservations",JSON.stringify(user_info));
+        document.getElementById("reserveSection").className = "";
     }
     console.log(user_info);
     const request = await fetch("http://localhost:8000/init");
@@ -202,7 +203,7 @@ function printData(){
     document.getElementById("c_milage").textContent = "milage: "+data[this.id].milage;
     document.getElementById("c_hp").textContent = "horse power: "+data[this.id].hp;
     document.getElementById("c_price").textContent = "daily price: "+data[this.id].d_price;
-    document.getElementById("reserveSection").className = "";
+    
 }
 
 function toggle_model() {
