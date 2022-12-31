@@ -229,9 +229,11 @@ app.post("/car_status",(req,res)=>{
     WHERE (A.date, A.plate_id) IN (
     SELECT MAX(B.date), B.plate_id FROM car_status AS B
         WHERE B.date < ?
-        GROUP BY B.plate_id;`;
+        GROUP BY B.plate_id);`;
     connection.query(sql, [body.date],function (error, results, fields) {
             if (error) {res.sendStatus(400);
+                console.log(body);
+                console.log(error);
                 return;}
             console.log(results);
             res.status(200).send(results);
@@ -254,14 +256,90 @@ app.post("/customer_reservation",(req,res)=>{
 });
 app.post("/daily_payment",(req,res)=>{
     let body = req.body;
-    sql = `SELECT SUM(d_price * DATEDIFF(d_date,s_date)) FROM payment
+    sql = `SELECT SUM(d_price * DATEDIFF(d_date,s_date)), YEAR(payment.date), MONTH(payment.date), DAY(payment.date) FROM payment
     NATURAL JOIN reserve
     NATURAL JOIN car
     WHERE payment.date >= ? AND payment.date <= ?
-    GROUP BY payment.R_id;`;
+    GROUP BY YEAR(payment.date), MONTH(payment.date), DAY(payment.date);`;
     connection.query(sql, [body.start,body.end],function (error, results, fields) {
             if (error) {res.sendStatus(400);
+                console.log(body);
+                console.log(error);
                 return;}
+            console.log(results);
+            res.status(200).send(results);
+            return;
+        });
+});
+
+app.post("/reservation",(req,res)=>{
+    let body = req.body;
+    sql = `SELECT ssn, name, ph_num, make, model, plate_id, s_date, d_date, cancelled, payment.date, is_reserved FROM reserve
+    NATURAL JOIN customer
+    NATURAL JOIN car
+    NATURAL LEFT JOIN payment
+    WHERE R_id = ?;`;
+    connection.query(sql, [body.R_id],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            console.log(body);
+            console.log(results);
+            res.status(200).send(results);
+            return;
+        });
+});
+
+app.post("/localpayment",(req,res)=>{
+    let body = req.body;
+    sql = `INSERT INTO car_status(plate_id,date,recent_status) VALUES (?,now(),'rented');`;
+    connection.query(sql, [body.plate_id],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            sql = `insert into payment(R_id,date,online) VALUES (?,now(),false);`;
+            connection.query(sql, [body.R_id],function (error, results, fields) {
+                    if (error) {res.sendStatus(400);
+                        return;}
+                        sql = `insert into pickup(R_id,date) VALUES (?,now());`;
+                        connection.query(sql, [body.R_id],function (error, results, fields) {
+                                if (error) {res.sendStatus(400);
+                                    return;}
+                                console.log(body);
+                                console.log(results);
+                                res.status(200).send(results);
+                                return;
+                            });
+                });
+        });
+});
+
+app.post("/return",(req,res)=>{
+    let body = req.body;
+    sql = `INSERT INTO car_status(plate_id,date,recent_status) VALUES (?,now(),?);`;
+    connection.query(sql, [body.plate_id, body.status],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            sql = `UPDATE car
+            SET is_reserved=0
+            WHERE plate_id=?`;
+            connection.query(sql, [body.plate_id],function (error, results, fields) {
+                    if (error) {res.sendStatus(400);
+                        return;}
+                    console.log(body);
+                    console.log(results);
+                    res.status(200).send(results);
+                    return;
+                });
+        });
+});
+
+app.post("/checkreturn",(req,res)=>{
+    let body = req.body;
+    sql = `SELECT * FROM car_status
+    WHERE plate_id=? AND car_status.date > ?`;
+    connection.query(sql, [body.plate_id, body.date],function (error, results, fields) {
+            if (error) {res.sendStatus(400);
+                return;}
+            console.log(body);
             console.log(results);
             res.status(200).send(results);
             return;
