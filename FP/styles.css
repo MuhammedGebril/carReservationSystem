@@ -137,6 +137,11 @@ li{
     padding-bottom: 20px;
 }
 
+.buttons {
+    display: flex;
+    flex-direction: row;
+}
+
 .hidden {
     display: none;
     visibility: hidden;
